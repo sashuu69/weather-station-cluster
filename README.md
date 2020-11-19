@@ -30,7 +30,6 @@ The Home Weather Station Mini is a DIY weather station that collects the followi
 
 Discount code for Tomson Electronics : ZENOOFF2020
 
-
 ## PCB design
 
 ### Top View
