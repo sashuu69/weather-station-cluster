@@ -17,9 +17,10 @@ The Home Weather Station Mini is a DIY weather station that collects the followi
 ## Folder Structure
 
 1. application: PyQT application for basic statistic works.
-2. docs:
-3. eagle-design:
-4. nodemcu-code: Contains nodemcu code for collecting weather data, web application to show weather data and upload data to firebase.
+2. docs: PCB images (Top, Bottom and Drill).
+3. eagle-design: Eagle design of PCB.
+4. libraries: Contains the libraries to be added to Arduino IDE.
+5. nodemcu-code: Contains nodemcu code for collecting weather data, web application to show weather data and upload data to firebase.
 
 ## Components Used
 
