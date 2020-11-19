@@ -16,8 +16,10 @@ The Home Weather Station Mini is a DIY weather station that collects the followi
 
 ## Folder Structure
 
-1. nodemcu-code: Contains nodemcu code for collecting weather data, web application to show weather data and upload data to firebase.
-2. pyqt-application: PyQT application for basic statistic works.
+1. application: PyQT application for basic statistic works.
+2. docs:
+3. eagle-design:
+4. nodemcu-code: Contains nodemcu code for collecting weather data, web application to show weather data and upload data to firebase.
 
 ## Components Used
 
@@ -28,6 +30,21 @@ The Home Weather Station Mini is a DIY weather station that collects the followi
 
 Discount code for Tomson Electronics : ZENOOFF2020
 
+
+## PCB design
+
+### Top View
+
+![Top View](docs/main-top.png)
+
+### Bottom View
+
+![Bottom View](docs/main-bottom.png)
+
+### Drill View
+
+![Drill View](docs/main-drills.png)
+
 ## Pre-Installation Steps
 
 1. Connect the sensors as per circuit diagram.
@@ -36,8 +53,10 @@ Discount code for Tomson Electronics : ZENOOFF2020
 
 ## Sensor Info
 
-Sensor name | Features
-DHT22 | Temperature, Humidity and Heat Index
+| Sensor name | Features |
+|-------------|----------|
+| DHT22 | Temperature, Humidity and Heat Index |
+| BMP280 | Temperature, atmospheric pressure and altitude |
 
 ## Contributions
 
