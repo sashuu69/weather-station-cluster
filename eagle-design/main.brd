@@ -256,6 +256,19 @@ Station Mini
 <vertex x="33.8074" y="27.7368"/>
 <vertex x="25.8064" y="27.7368"/>
 </polygon>
+<text x="75.946" y="26.8986" size="1.016" layer="21" rot="R90">D1</text>
+<text x="78.486" y="26.9494" size="1.016" layer="21" rot="R90">D2</text>
+<text x="81.0006" y="26.8732" size="1.016" layer="21" rot="R90">D3</text>
+<text x="83.6168" y="26.67" size="1.016" layer="21" rot="R90">D4</text>
+<text x="86.1568" y="25.8826" size="1.016" layer="21" rot="R90">3.3V</text>
+<text x="88.7222" y="25.4762" size="1.016" layer="21" rot="R90">GND</text>
+<text x="91.3892" y="26.4668" size="1.016" layer="21" rot="R90">D5</text>
+<text x="106.553" y="25.4" size="1.016" layer="21" rot="R90">GND</text>
+<text x="109.0168" y="25.654" size="1.016" layer="21" rot="R90">3.3V</text>
+<text x="96.266" y="8.2804" size="1.016" layer="21" rot="R90">GND</text>
+<text x="106.426" y="8.382" size="1.016" layer="21" rot="R90">GND</text>
+<text x="103.7336" y="8.3566" size="1.016" layer="21" rot="R90">RESET</text>
+<text x="109.0168" y="8.3566" size="1.016" layer="21" rot="R90">VIN</text>
 </plain>
 <libraries>
 <library name="adafruit">
