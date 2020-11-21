@@ -2,9 +2,10 @@
  * Project Name: Home Weather Station Mini
  * Program Name: NodeMCU code
  * Created on: 20/11/2020 02:11:00 AM
- * Last Modified: 20/11/2020 02:11:00 AM
+ * Last Modified: 21/11/2020 11:20:00 PM
  * Created by: Sashwat K
  */
+ 
 #include <ESP8266WiFi.h>
 #include <DNSServer.h>
 #include <ESP8266WebServer.h>
@@ -40,6 +41,7 @@ void setup() {
   server.on("/change_lattitude", change_lattitude);
   server.on("/change_longitude", change_longitude);
   server.on("/change_admin_password", change_admin_password);
+  server.onNotFound(handleNotFound);
   server.begin();
   
   Serial.println("connected :)");
@@ -113,6 +115,10 @@ void reset_data() {
     server.send(200, "text/html", "<script>document.location.href=\"/\";</script>");
 }
 
+void handleNotFound() {
+  server.send(404, "text/html",the_404_page());
+}
+
 String dashboard() {
   String wifi_ssid = WiFi.SSID().c_str();
   String device_hostname = WiFi.hostname().c_str();
@@ -176,5 +182,30 @@ String dashboard() {
   ptr += "<tr> <td>Confirm new password</td> <td><input type=\"password\" name=\"confirm_new_password\"></td> </tr> <tr> <td colspan=\"2\"> <button>Change</button></td> </tr> </table> </form>\n";
   ptr += "</body>\n";
   ptr += "</html>\n";
+  
+  return ptr;
+}
+
+
+String the_404_page() {
+  String ptr = "<!DOCTYPE html> <html>\n";
+
+  ptr += "<head> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
+  ptr += "<title>Home Weather Station Mini</title>\n";
+  ptr += "<link href=\"https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;900&display=swap\" rel=\"stylesheet\">\n";
+  ptr += "<style>body {background-color: #95c2de;}\n";
+  ptr += ".mainbox {background-color: #95c2de;margin: auto;height: 600px;width: 600px;position: relative;}\n";
+  ptr += ".err {color: #ffffff;font-family: 'Nunito Sans', sans-serif;font-size: 11rem;position:absolute;left: 20%;top: 8%;}\n";
+  ptr += ".far {position: absolute;font-size: 8.5rem;left: 42%;top: 15%;color: #ffffff;}\n";
+  ptr += ".err2 {color: #ffffff;font-family: 'Nunito Sans', sans-serif;font-size: 11rem;position:absolute;left: 68%;top: 8%;}\n";
+  ptr += ".msg {text-align: center;font-family: 'Nunito Sans', sans-serif;font-size: 1.6rem;position:absolute;left: 16%;top: 45%;width: 75%;}\n";
+  ptr += "a {text-decoration: none; color: white;}\n";
+  ptr += "a:hover {text-decoration: underline;}</style>\n";
+  ptr += "<script src=\"https://kit.fontawesome.com/4b9ba14b0f.js\" crossorigin=\"anonymous\"></script>\n";
+  ptr += "</head> <body>\n";
+  ptr += "<div class=\"mainbox\"><div class=\"err\">4</div><i class=\"far fa-question-circle fa-spin\"></i><div class=\"err2\">4</div>\n";
+  ptr += "<div class=\"msg\">Maybe this page moved? Got deleted? Is hiding out in quarantine? Never existed in the first place?<p>Let's go <a href=\"/\">home</a> and try from there.</p></div>";
+  ptr += "</div></body></html>\n";
+  
   return ptr;
 }
