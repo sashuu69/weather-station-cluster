@@ -34,6 +34,12 @@ void setup() {
   wifiManager.autoConnect("Home Weather Station Mini");
 
   server.on("/", handle_OnConnect);
+  server.on("/change_hostname", change_hostname);
+  server.on("/change_server_ip", change_server_ip);
+  server.on("/change_api_key", change_api_key);
+  server.on("/change_lattitude", change_lattitude);
+  server.on("/change_longitude", change_longitude);
+  server.on("/change_admin_password", change_admin_password);
   server.begin();
   
   Serial.println("connected :)");
@@ -60,10 +66,54 @@ void loop() {
 }
 
 void handle_OnConnect() {
-  server.send(200, "text/html", SendHTML());
+  server.send(200, "text/html", dashboard());
 }
 
-String SendHTML() {
+void change_hostname() {
+  WiFi.hostname(server.arg("server_hostname"));
+  reset_data();
+}
+
+void change_server_ip() {
+  server_url = server.arg("server_ip");
+  reset_data();
+}
+
+void change_api_key() {
+  server_api_key = server.arg("api_key");
+  reset_data();
+}
+
+void change_lattitude() {
+  gps_latitude = server.arg("change_latitude");
+  reset_data();
+}
+
+void change_longitude() {
+  gps_longitude = server.arg("change_longitude");
+  reset_data();
+}
+
+void change_admin_password() {
+  if (admin_password == server.arg("old_password")) {
+    if (server.arg("new_password") == server.arg("confirm_new_password")) {
+      admin_password = server.arg("new_password");
+      reset_data();
+    }
+    else {
+      server.send(200, "text/html", "alert(\"New Password not same.\");");
+    }
+  }
+  else {
+    server.send(200, "text/html", "alert(\"Old Password incorrect.\");");
+  }
+}
+
+void reset_data() {
+    server.send(200, "text/html", "<script>document.location.href=\"/\";</script>");
+}
+
+String dashboard() {
   String wifi_ssid = WiFi.SSID().c_str();
   String device_hostname = WiFi.hostname().c_str();
   String device_ip_address = WiFi.localIP().toString();
@@ -116,9 +166,15 @@ String SendHTML() {
   ptr += "<tr> <td>Connection Status: </td> <td colspan=\"2\">Authenticated</td> </tr> <tr> <td>GPS : </td> <td>" + gps_latitude + ", " + gps_longitude + "</td> <td><a href=\"https://www.google.com/maps/@" + gps_latitude + "," + gps_longitude + ",15z\" target=\"_blank\">Open in maps</a></td> ";
   ptr += "</tr> <tr> <td colspan=\"3\"><button onclick = \"window.location.reload();\">Refresh</button></td> </tr> </table>\n";
   ptr += "<h2>Device Settings</h2>\n";
-  ptr += "<table> <tr> <td>Server IP:</td> <td><input type=\"text\"></td> <td><button>Change</button> </td> </tr>\n";
-  ptr +="</table>\n";
-  ptr +="</body>\n";
-  ptr +="</html>\n";
+  ptr += "<table> <tr> <td>Hostname</td> <td> <form action=\"/change_hostname\" method=\"POST\"> <input type=\"text\" name=\"server_hostname\"></td> <td><button>Change</button></form></td> </tr>\n";
+  ptr += "<tr> <td>Server IP:</td> <td> <form action=\"/change_server_ip\" method=\"POST\"><input type=\"text\" name=\"server_ip\"></td> <td><button>Change</button></form></td> </tr>\n";
+  ptr += "<tr> <td>API Key: </td> <td> <form action=\"/change_api_key\" method=\"POST\"> <input type=\"text\" name=\"api_key\"></td> <td><button>Change</button></form></td> </tr>\n";
+  ptr += "<tr> <td>GPS Lattitude: </td> <td> <form action=\"/change_lattitude\" method=\"POST\"> <input type=\"text\" name=\"change_latitude\"> </td> <td> <button>Change</button> </form> </td>\n";
+  ptr += "<tr> <td>GPS Longitude: </td> <td> <form action=\"/change_longitude\" method=\"POST\"> <input type=\"text\" name=\"change_longitude\"> </td> <td> <button>Change</button> </form> </td> </table>\n";
+  ptr += "<h2>Admin Settings</h2>\n";
+  ptr += "<form action=\"/change_admin_password\" method=\"POST\"> <table> <tr> <td>Old password</td> <td><input type=\"password\" name=\"old_password\"></td> </tr> <tr> <td>New password</td> <td><input type=\"password\" name=\"new_password\"> </td> </tr>\n";
+  ptr += "<tr> <td>Confirm new password</td> <td><input type=\"password\" name=\"confirm_new_password\"></td> </tr> <tr> <td colspan=\"2\"> <button>Change</button></td> </tr> </table> </form>\n";
+  ptr += "</body>\n";
+  ptr += "</html>\n";
   return ptr;
 }
