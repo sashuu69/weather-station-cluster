@@ -101,11 +101,11 @@ void change_admin_password() {
       reset_data();
     }
     else {
-      server.send(200, "text/html", "alert(\"New Password not same.\");");
+      server.send(200, "text/html", "<script>if(window.confirm(\"New Password not same.\")){document.location.href=\"/\";}</script>");
     }
   }
   else {
-    server.send(200, "text/html", "alert(\"Old Password incorrect.\");");
+    server.send(200, "text/html", "<script>if(window.confirm(\"Old Password incorrect.\")){document.location.href=\"/\";}</script>");
   }
 }
 
