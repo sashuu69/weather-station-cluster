@@ -2,22 +2,34 @@
  * Project Name: Home Weather Station Mini
  * Program Name: NodeMCU code
  * Created on: 20/11/2020 02:11:00 AM
- * Last Modified: 21/11/2020 11:20:00 PM
+ * Last Modified: 22/11/2020 11:45:00 AM
  * Created by: Sashwat K
  */
- 
+
 #include <ESP8266WiFi.h>
+#include <ESP8266mDNS.h>
+#include <WiFiUdp.h>
+#include <ArduinoOTA.h>
 #include <DNSServer.h>
 #include <ESP8266WebServer.h>
 #include <WiFiManager.h> 
 #define WEB_PORT 80
+
 #include "DHT.h"
 #define DHTPIN D5
 #define DHTTYPE DHT22
 
+#include "BMP280.h"
+#include "Wire.h"
+#define P0 1013.25
+
+#include <EEPROM.h>
+
+WiFiManager wifiManager;
 ESP8266WebServer server(WEB_PORT);
-DHT dht(DHTPIN, DHTTYPE);
 WiFiClient client;
+DHT dht(DHTPIN, DHTTYPE);
+BMP280 bmp;
 
 String admin_username = "admin";
 String admin_password = "password";
@@ -26,13 +38,44 @@ String server_api_key = "23R456DUG22458";
 String gps_longitude = "0";
 String gps_latitude = "0";
 
+int timer = 0;
+int addr = 0;
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   dht.begin();
-
-  WiFiManager wifiManager;
+  
+  bmp.begin();
+  bmp.setOversampling(4);
+  
   wifiManager.autoConnect("Home Weather Station Mini");
+
+  ArduinoOTA.onStart([]() {
+    String type;
+    if (ArduinoOTA.getCommand() == U_FLASH)
+      type = "sketch";
+    else // U_SPIFFS
+      type = "filesystem";
+
+    // NOTE: if updating SPIFFS this would be the place to unmount SPIFFS using SPIFFS.end()
+    Serial.println("Start updating " + type);
+  });
+  ArduinoOTA.onEnd([]() {
+    Serial.println("\nEnd");
+  });
+  ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
+    Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
+  });
+  ArduinoOTA.onError([](ota_error_t error) {
+    Serial.printf("Error[%u]: ", error);
+    if (error == OTA_AUTH_ERROR) Serial.println("Auth Failed");
+    else if (error == OTA_BEGIN_ERROR) Serial.println("Begin Failed");
+    else if (error == OTA_CONNECT_ERROR) Serial.println("Connect Failed");
+    else if (error == OTA_RECEIVE_ERROR) Serial.println("Receive Failed");
+    else if (error == OTA_END_ERROR) Serial.println("End Failed");
+  });
+  ArduinoOTA.begin();
 
   server.on("/", handle_OnConnect);
   server.on("/change_hostname", change_hostname);
@@ -41,6 +84,8 @@ void setup() {
   server.on("/change_lattitude", change_lattitude);
   server.on("/change_longitude", change_longitude);
   server.on("/change_admin_password", change_admin_password);
+  server.on("/reset_network", reset_network);
+  server.on("/reset_everything", reset_everything);
   server.onNotFound(handleNotFound);
   server.begin();
   
@@ -51,18 +96,28 @@ void loop() {
   // put your main code here, to run repeatedly:
   if (WiFi.status() == WL_CONNECTED) {
     while(WiFi.status() == WL_CONNECTED){
+      ArduinoOTA.handle();
       server.handleClient();
       float dht_humidity = dht.readHumidity();
       float dht_temperature = dht.readTemperature();
       float dht_heat_index = dht.computeHeatIndex(dht_temperature, dht_humidity, false);
-      
-      Serial.println("\nDHT22 Sensor");
-      Serial.println("============");
-      Serial.print("Humidity: ");Serial.println(dht_humidity);
-      Serial.print("Temperature: ");Serial.println(dht_temperature);
-      Serial.print("dht_heat_index: ");Serial.println(dht_heat_index);
 
-      delay(5000);
+      double bmp_temperature, bmp_pressure, bmp_altitude;
+      char result = bmp.startMeasurment();
+
+      if (result != 0) {
+        delay(result);
+        result = bmp.getTemperatureAndPressure(bmp_temperature,bmp_pressure);
+
+        if(result!=0) {
+          bmp_altitude = bmp.altitude(bmp_pressure,P0);
+          if (timer % 30 == 0) {
+            print_diagnostic_data(bmp_temperature, bmp_pressure, bmp_altitude, dht_humidity, dht_temperature, dht_heat_index); 
+          }
+        }
+      }
+      timer++;
+      delay(1000);
     }
   }
 }
@@ -73,34 +128,34 @@ void handle_OnConnect() {
 
 void change_hostname() {
   WiFi.hostname(server.arg("server_hostname"));
-  reset_data();
+  jump_to_home();
 }
 
 void change_server_ip() {
   server_url = server.arg("server_ip");
-  reset_data();
+  jump_to_home();
 }
 
 void change_api_key() {
   server_api_key = server.arg("api_key");
-  reset_data();
+  jump_to_home();
 }
 
 void change_lattitude() {
   gps_latitude = server.arg("change_latitude");
-  reset_data();
+  jump_to_home();
 }
 
 void change_longitude() {
   gps_longitude = server.arg("change_longitude");
-  reset_data();
+  jump_to_home();
 }
 
 void change_admin_password() {
   if (admin_password == server.arg("old_password")) {
     if (server.arg("new_password") == server.arg("confirm_new_password")) {
       admin_password = server.arg("new_password");
-      reset_data();
+      jump_to_home();
     }
     else {
       server.send(200, "text/html", "<script>if(window.confirm(\"New Password not same.\")){document.location.href=\"/\";}</script>");
@@ -111,7 +166,22 @@ void change_admin_password() {
   }
 }
 
-void reset_data() {
+void reset_network() {
+  wifiManager.resetSettings();
+  ESP.restart();
+}
+
+void reset_everything() {
+  admin_username = "admin";
+  admin_password = "password";
+  server_url = "sashwat.in";
+  server_api_key = "-";
+  gps_longitude = "0";
+  gps_latitude = "0";
+  reset_network();
+}
+
+void jump_to_home() {
     server.send(200, "text/html", "<script>document.location.href=\"/\";</script>");
 }
 
@@ -172,20 +242,22 @@ String dashboard() {
   ptr += "<tr> <td>Connection Status: </td> <td colspan=\"2\">Authenticated</td> </tr> <tr> <td>GPS : </td> <td>" + gps_latitude + ", " + gps_longitude + "</td> <td><a href=\"https://www.google.com/maps/@" + gps_latitude + "," + gps_longitude + ",15z\" target=\"_blank\">Open in maps</a></td> ";
   ptr += "</tr> <tr> <td colspan=\"3\"><button onclick = \"window.location.reload();\">Refresh</button></td> </tr> </table>\n";
   ptr += "<h2>Device Settings</h2>\n";
-  ptr += "<table> <tr> <td>Hostname</td> <td> <form action=\"/change_hostname\" method=\"POST\"> <input type=\"text\" name=\"server_hostname\"></td> <td><button>Change</button></form></td> </tr>\n";
-  ptr += "<tr> <td>Server IP:</td> <td> <form action=\"/change_server_ip\" method=\"POST\"><input type=\"text\" name=\"server_ip\"></td> <td><button>Change</button></form></td> </tr>\n";
-  ptr += "<tr> <td>API Key: </td> <td> <form action=\"/change_api_key\" method=\"POST\"> <input type=\"text\" name=\"api_key\"></td> <td><button>Change</button></form></td> </tr>\n";
-  ptr += "<tr> <td>GPS Lattitude: </td> <td> <form action=\"/change_lattitude\" method=\"POST\"> <input type=\"text\" name=\"change_latitude\"> </td> <td> <button>Change</button> </form> </td>\n";
-  ptr += "<tr> <td>GPS Longitude: </td> <td> <form action=\"/change_longitude\" method=\"POST\"> <input type=\"text\" name=\"change_longitude\"> </td> <td> <button>Change</button> </form> </td> </table>\n";
+  ptr += "<table> <tr> <td>Hostname</td> <td> <form action=\"/change_hostname\" method=\"POST\"> <input type=\"text\" name=\"server_hostname\"></td> <td><button onclick=\"return confirm('Are you sure?');\">Change</button></form></td> </tr>\n";
+  ptr += "<tr> <td>Server IP:</td> <td> <form action=\"/change_server_ip\" method=\"POST\"><input type=\"text\" name=\"server_ip\"></td> <td><button onclick=\"return confirm('Are you sure?');\">Change</button></form></td> </tr>\n";
+  ptr += "<tr> <td>API Key: </td> <td> <form action=\"/change_api_key\" method=\"POST\"> <input type=\"text\" name=\"api_key\"></td> <td><button onclick=\"return confirm('Are you sure?');\">Change</button></form></td> </tr>\n";
+  ptr += "<tr> <td>GPS Lattitude: </td> <td> <form action=\"/change_lattitude\" method=\"POST\"> <input type=\"text\" name=\"change_latitude\"> </td> <td> <button onclick=\"return confirm('Are you sure?');\">Change</button> </form> </td>\n";
+  ptr += "<tr> <td>GPS Longitude: </td> <td> <form action=\"/change_longitude\" method=\"POST\"> <input type=\"text\" name=\"change_longitude\"> </td> <td> <button onclick=\"return confirm('Are you sure?');\">Change</button> </form> </td> </table>\n";
   ptr += "<h2>Admin Settings</h2>\n";
   ptr += "<form action=\"/change_admin_password\" method=\"POST\"> <table> <tr> <td>Old password</td> <td><input type=\"password\" name=\"old_password\"></td> </tr> <tr> <td>New password</td> <td><input type=\"password\" name=\"new_password\"> </td> </tr>\n";
-  ptr += "<tr> <td>Confirm new password</td> <td><input type=\"password\" name=\"confirm_new_password\"></td> </tr> <tr> <td colspan=\"2\"> <button>Change</button></td> </tr> </table> </form>\n";
+  ptr += "<tr> <td>Confirm new password</td> <td><input type=\"password\" name=\"confirm_new_password\"></td> </tr> <tr> <td colspan=\"2\"> <button onclick=\"return confirm('Are you sure?');\">Change</button></td> </tr> </table> </form>\n";
+  ptr += "<h2>Reset</h2>\n";
+  ptr += "<table> <tr> <td> Reset Network </td> <td> <form action=\"/reset_network\" method=\"POST\"> <button onclick=\"return confirm('Are you sure?');\">Submit</button> </form> </td> </tr>\n";
+  ptr += "<tr> <td> All </td> <td> <form action=\"/reset_everything\" method=\"POST\"> <button onclick=\"return confirm('Are you sure?');\">Submit</button> </form> </td> </tr> </table>";
   ptr += "</body>\n";
   ptr += "</html>\n";
   
   return ptr;
 }
-
 
 String the_404_page() {
   String ptr = "<!DOCTYPE html> <html>\n";
@@ -208,4 +280,34 @@ String the_404_page() {
   ptr += "</div></body></html>\n";
   
   return ptr;
+}
+
+void print_diagnostic_data(double bmp_temperature, double bmp_pressure, double bmp_altitude, float dht_humidity, float dht_temperature, float dht_heat_index) {
+  Serial.println("\n=============================================");
+  Serial.println("=============================================\n");
+  Serial.println("WiFi Details");
+  Serial.println("============");
+  Serial.print("SSID: ");Serial.println(WiFi.SSID());
+  Serial.print("IP address: ");Serial.println(WiFi.localIP());
+  Serial.print("Subnet: ");Serial.println(WiFi.subnetMask());
+  Serial.print("Gateway: ");Serial.println(WiFi.gatewayIP());
+
+  Serial.println("\nDevice Details");
+  Serial.print("MAC address: ");Serial.println(WiFi.macAddress());
+  Serial.print("Hostname: ");Serial.println(WiFi.hostname());
+  
+  Serial.println("\nBMP280 Sensor");
+  Serial.println("===============");
+  Serial.print("Temperature: ");Serial.println(bmp_temperature);
+  Serial.print("Pressure: ");Serial.println(bmp_pressure);
+  Serial.print("Altitude: ");Serial.println(bmp_altitude);
+  
+  Serial.println("\nDHT22 Sensor");
+  Serial.println("============");
+  Serial.print("Humidity: ");Serial.println(dht_humidity);
+  Serial.print("Temperature: ");Serial.println(dht_temperature);
+  Serial.print("dht_heat_index: ");Serial.println(dht_heat_index);
+  
+  Serial.println("\n=============================================");
+  Serial.println("=============================================\n");
 }
