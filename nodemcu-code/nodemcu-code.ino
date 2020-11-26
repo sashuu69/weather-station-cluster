@@ -32,11 +32,11 @@ DHT dht(DHTPIN, DHTTYPE);
 BMP280 bmp;
 
 String admin_username = "admin";
-String admin_password = "password";
-String server_url = "google.com";
-String server_api_key = "23R456DUG22458";
-String gps_longitude = "0";
-String gps_latitude = "0";
+String admin_password;
+String server_url;
+String server_api_key;
+String gps_longitude;
+String gps_latitude;
 
 int timer = 0;
 int addr = 0;
@@ -44,6 +44,10 @@ int addr = 0;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
+  EEPROM.begin(512);
+  
+  readDataFromEEPROM();
+  
   dht.begin();
   
   bmp.begin();
@@ -51,14 +55,18 @@ void setup() {
   
   wifiManager.autoConnect("Home Weather Station Mini");
 
+  ArduinoOTA.setPort(8266);
+  ArduinoOTA.setHostname("Home Weather Station Mini");
+
   ArduinoOTA.onStart([]() {
     String type;
-    if (ArduinoOTA.getCommand() == U_FLASH)
+    if (ArduinoOTA.getCommand() == U_FLASH) {
       type = "sketch";
-    else // U_SPIFFS
+    } else { // U_FS
       type = "filesystem";
+    }
 
-    // NOTE: if updating SPIFFS this would be the place to unmount SPIFFS using SPIFFS.end()
+    // NOTE: if updating FS this would be the place to unmount FS using FS.end()
     Serial.println("Start updating " + type);
   });
   ArduinoOTA.onEnd([]() {
@@ -69,14 +77,20 @@ void setup() {
   });
   ArduinoOTA.onError([](ota_error_t error) {
     Serial.printf("Error[%u]: ", error);
-    if (error == OTA_AUTH_ERROR) Serial.println("Auth Failed");
-    else if (error == OTA_BEGIN_ERROR) Serial.println("Begin Failed");
-    else if (error == OTA_CONNECT_ERROR) Serial.println("Connect Failed");
-    else if (error == OTA_RECEIVE_ERROR) Serial.println("Receive Failed");
-    else if (error == OTA_END_ERROR) Serial.println("End Failed");
+    if (error == OTA_AUTH_ERROR) {
+      Serial.println("Auth Failed");
+    } else if (error == OTA_BEGIN_ERROR) {
+      Serial.println("Begin Failed");
+    } else if (error == OTA_CONNECT_ERROR) {
+      Serial.println("Connect Failed");
+    } else if (error == OTA_RECEIVE_ERROR) {
+      Serial.println("Receive Failed");
+    } else if (error == OTA_END_ERROR) {
+      Serial.println("End Failed");
+    }
   });
   ArduinoOTA.begin();
-
+  
   server.on("/", handle_OnConnect);
   server.on("/change_hostname", change_hostname);
   server.on("/change_server_ip", change_server_ip);
@@ -122,31 +136,79 @@ void loop() {
   }
 }
 
+void readDataFromEEPROM() {
+  admin_password = read_String(200);
+  server_url = read_String(250);
+  server_api_key = read_String(300);
+  gps_longitude = read_String(350);
+  gps_latitude = read_String(400);
+}
+
+String read_String(char add) {
+  int i;
+  char data[100]; //Max 100 Bytes
+  int len=0;
+  unsigned char k;
+  k=EEPROM.read(add);
+  while(k != '\0' && len<500)   //Read until null character
+  {    
+    k=EEPROM.read(add+len);
+    data[len]=k;
+    len++;
+  }
+  data[len]='\0';
+  return String(data);
+}
+
+void writeString(char add,String data) {
+  int _size = data.length();
+  int i;
+  for (i = 0; i < 50; i++) {
+    EEPROM.write(add+i, 0);
+  }
+  EEPROM.end();
+  for(i=0;i<_size;i++)
+  {
+    EEPROM.write(add+i,data[i]);
+  }
+  EEPROM.write(add+_size,'\0');   //Add termination null character for String Data
+  EEPROM.commit();
+}
+
 void handle_OnConnect() {
   server.send(200, "text/html", dashboard());
 }
 
 void change_hostname() {
-  WiFi.hostname(server.arg("server_hostname"));
+  WiFi.hostname(server.arg("device_hostname"));
+  delay(10);
   jump_to_home();
 }
 
 void change_server_ip() {
+  writeString(250, server.arg("server_ip"));
+  delay(10);
   server_url = server.arg("server_ip");
   jump_to_home();
 }
 
 void change_api_key() {
+  writeString(300, server.arg("api_key"));
+  delay(10);
   server_api_key = server.arg("api_key");
   jump_to_home();
 }
 
 void change_lattitude() {
+  writeString(350, server.arg("change_latitude"));
+  delay(10);
   gps_latitude = server.arg("change_latitude");
   jump_to_home();
 }
 
 void change_longitude() {
+  writeString(400, server.arg("change_longitude"));
+  delay(10);
   gps_longitude = server.arg("change_longitude");
   jump_to_home();
 }
@@ -154,6 +216,8 @@ void change_longitude() {
 void change_admin_password() {
   if (admin_password == server.arg("old_password")) {
     if (server.arg("new_password") == server.arg("confirm_new_password")) {
+      writeString(200, server.arg("new_password"));
+      delay(10);
       admin_password = server.arg("new_password");
       jump_to_home();
     }
@@ -187,6 +251,32 @@ void jump_to_home() {
 
 void handleNotFound() {
   server.send(404, "text/html",the_404_page());
+}
+
+void writeString(int address, String data)
+{
+  int _size = data.length();
+  for(int i=0;i<_size;i++)
+  {
+    EEPROM.write(address+i, data[i]);
+  }
+  EEPROM.write(address + _size,'\0');   //Add termination null character
+}
+
+String readString(int address)
+{
+  char data[100]; //Max 100 Bytes
+  int len=0;
+  unsigned char k;
+  k = EEPROM.read(address);
+  while(k != '\0' && len < 100)   //Read until null character
+  {
+    k = EEPROM.read(address + len);
+    data[len] = k;
+    len++;
+  }
+  data[len]='\0';
+  return String(data);
 }
 
 String dashboard() {
@@ -242,7 +332,7 @@ String dashboard() {
   ptr += "<tr> <td>Connection Status: </td> <td colspan=\"2\">Authenticated</td> </tr> <tr> <td>GPS : </td> <td>" + gps_latitude + ", " + gps_longitude + "</td> <td><a href=\"https://www.google.com/maps/@" + gps_latitude + "," + gps_longitude + ",15z\" target=\"_blank\">Open in maps</a></td> ";
   ptr += "</tr> <tr> <td colspan=\"3\"><button onclick = \"window.location.reload();\">Refresh</button></td> </tr> </table>\n";
   ptr += "<h2>Device Settings</h2>\n";
-  ptr += "<table> <tr> <td>Hostname</td> <td> <form action=\"/change_hostname\" method=\"POST\"> <input type=\"text\" name=\"server_hostname\"></td> <td><button onclick=\"return confirm('Are you sure?');\">Change</button></form></td> </tr>\n";
+  ptr += "<table> <tr> <td>Hostname</td> <td> <form action=\"/change_hostname\" method=\"POST\"> <input type=\"text\" name=\"device_hostname\"></td> <td><button onclick=\"return confirm('Are you sure?');\">Change</button></form></td> </tr>\n";
   ptr += "<tr> <td>Server IP:</td> <td> <form action=\"/change_server_ip\" method=\"POST\"><input type=\"text\" name=\"server_ip\"></td> <td><button onclick=\"return confirm('Are you sure?');\">Change</button></form></td> </tr>\n";
   ptr += "<tr> <td>API Key: </td> <td> <form action=\"/change_api_key\" method=\"POST\"> <input type=\"text\" name=\"api_key\"></td> <td><button onclick=\"return confirm('Are you sure?');\">Change</button></form></td> </tr>\n";
   ptr += "<tr> <td>GPS Lattitude: </td> <td> <form action=\"/change_lattitude\" method=\"POST\"> <input type=\"text\" name=\"change_latitude\"> </td> <td> <button onclick=\"return confirm('Are you sure?');\">Change</button> </form> </td>\n";
