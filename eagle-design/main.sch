@@ -8188,6 +8188,8 @@ An 0805 resistor inside a standard 1/4W 5% resistor. Makes for easy mods</descri
 <part name="R6" library="adafruit" deviceset="FLIPFLOP-RES" device="" value="10K"/>
 <part name="R7" library="adafruit" deviceset="FLIPFLOP-RES" device="" value="1K"/>
 <part name="JP4" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X5" device="5X2MM" package3d_urn="urn:adsk.eagle:package:22466/2"/>
+<part name="JP3" library="adafruit" deviceset="PINHD-1X6" device=""/>
+<part name="X_4" library="ngspice-simulation" library_urn="urn:adsk.eagle:library:527439" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -8206,9 +8208,9 @@ An 0805 resistor inside a standard 1/4W 5% resistor. Makes for easy mods</descri
 <attribute name="NAME" x="166.37" y="41.275" size="1.778" layer="95"/>
 <attribute name="VALUE" x="166.37" y="27.94" size="1.778" layer="96"/>
 </instance>
-<instance part="LED1" gate="G$1" x="93.98" y="53.34" smashed="yes" rot="R180">
-<attribute name="NAME" x="90.424" y="57.912" size="1.778" layer="95" rot="R270"/>
-<attribute name="VALUE" x="88.265" y="57.912" size="1.778" layer="96" rot="R270"/>
+<instance part="LED1" gate="G$1" x="86.36" y="53.34" smashed="yes" rot="R180">
+<attribute name="NAME" x="82.804" y="57.912" size="1.778" layer="95" rot="R270"/>
+<attribute name="VALUE" x="80.645" y="57.912" size="1.778" layer="96" rot="R270"/>
 </instance>
 <instance part="LED2" gate="G$1" x="149.86" y="48.26" smashed="yes">
 <attribute name="NAME" x="153.416" y="43.688" size="1.778" layer="95" rot="R90"/>
@@ -8218,31 +8220,31 @@ An 0805 resistor inside a standard 1/4W 5% resistor. Makes for easy mods</descri
 <attribute name="NAME" x="161.036" y="43.688" size="1.778" layer="95" rot="R90"/>
 <attribute name="VALUE" x="163.195" y="43.688" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="R3" gate="G$1" x="86.36" y="48.26" smashed="yes" rot="R180">
-<attribute name="NAME" x="87.63" y="54.3814" size="1.778" layer="95" rot="R180"/>
-<attribute name="VALUE" x="90.17" y="51.562" size="1.778" layer="96" rot="R180"/>
+<instance part="R3" gate="G$1" x="78.74" y="48.26" smashed="yes" rot="R180">
+<attribute name="NAME" x="80.01" y="54.3814" size="1.778" layer="95" rot="R180"/>
+<attribute name="VALUE" x="82.55" y="51.562" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="IC1" gate="A1" x="68.58" y="43.18" smashed="yes">
-<attribute name="NAME" x="71.12" y="46.355" size="1.778" layer="95"/>
-<attribute name="VALUE" x="60.96" y="46.355" size="1.778" layer="96"/>
+<instance part="IC1" gate="A1" x="60.96" y="43.18" smashed="yes">
+<attribute name="NAME" x="63.5" y="46.355" size="1.778" layer="95"/>
+<attribute name="VALUE" x="53.34" y="46.355" size="1.778" layer="96"/>
 </instance>
-<instance part="J2" gate="G$1" x="25.4" y="63.5" smashed="yes">
-<attribute name="NAME" x="22.86" y="67.31" size="1.778" layer="95"/>
-<attribute name="VALUE" x="22.86" y="57.15" size="1.778" layer="96"/>
+<instance part="J2" gate="G$1" x="17.78" y="63.5" smashed="yes">
+<attribute name="NAME" x="15.24" y="67.31" size="1.778" layer="95"/>
+<attribute name="VALUE" x="15.24" y="57.15" size="1.778" layer="96"/>
 </instance>
-<instance part="X_1" gate="G$1" x="68.58" y="30.48" smashed="yes"/>
-<instance part="X_2" gate="G$1" x="86.36" y="58.42" smashed="yes"/>
-<instance part="D1" gate="G$1" x="45.72" y="63.5" smashed="yes">
-<attribute name="NAME" x="40.63396875" y="68.58603125" size="1.678390625" layer="95"/>
-<attribute name="VALUE" x="40.63351875" y="58.41351875" size="1.678540625" layer="96"/>
+<instance part="X_1" gate="G$1" x="60.96" y="30.48" smashed="yes"/>
+<instance part="X_2" gate="G$1" x="78.74" y="58.42" smashed="yes"/>
+<instance part="D1" gate="G$1" x="38.1" y="63.5" smashed="yes">
+<attribute name="NAME" x="33.01396875" y="68.58603125" size="1.678390625" layer="95"/>
+<attribute name="VALUE" x="33.01351875" y="58.41351875" size="1.678540625" layer="96"/>
 </instance>
-<instance part="C3" gate="G$1" x="66.04" y="60.96" smashed="yes" rot="R90">
-<attribute name="NAME" x="65.405" y="64.516" size="1.778" layer="95" rot="R180"/>
-<attribute name="VALUE" x="70.231" y="61.976" size="1.778" layer="96" rot="R90"/>
+<instance part="C3" gate="G$1" x="58.42" y="60.96" smashed="yes" rot="R90">
+<attribute name="NAME" x="57.785" y="64.516" size="1.778" layer="95" rot="R180"/>
+<attribute name="VALUE" x="62.611" y="61.976" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="C4" gate="G$1" x="66.04" y="53.34" smashed="yes" rot="R90">
-<attribute name="NAME" x="65.405" y="54.356" size="1.778" layer="95" rot="R90"/>
-<attribute name="VALUE" x="70.231" y="54.356" size="1.778" layer="96" rot="R90"/>
+<instance part="C4" gate="G$1" x="58.42" y="53.34" smashed="yes" rot="R90">
+<attribute name="NAME" x="57.785" y="54.356" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="62.611" y="54.356" size="1.778" layer="96" rot="R90"/>
 </instance>
 <instance part="X_3" gate="G$1" x="147.32" y="35.56" smashed="yes"/>
 <instance part="R1" gate="G$1" x="152.4" y="58.42" smashed="yes" rot="R180">
@@ -8253,13 +8255,13 @@ An 0805 resistor inside a standard 1/4W 5% resistor. Makes for easy mods</descri
 <attribute name="NAME" x="143.51" y="51.8414" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="148.59" y="51.562" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="S1" gate="1" x="81.28" y="17.78" smashed="yes" rot="R270">
-<attribute name="NAME" x="83.82" y="21.59" size="1.778" layer="95"/>
-<attribute name="VALUE" x="84.455" y="21.59" size="1.778" layer="96"/>
+<instance part="S1" gate="1" x="73.66" y="17.78" smashed="yes" rot="R270">
+<attribute name="NAME" x="76.2" y="21.59" size="1.778" layer="95"/>
+<attribute name="VALUE" x="76.835" y="21.59" size="1.778" layer="96"/>
 </instance>
-<instance part="R4" gate="G$1" x="73.66" y="25.4" smashed="yes" rot="R90">
-<attribute name="NAME" x="77.2414" y="21.59" size="1.778" layer="95" rot="R90"/>
-<attribute name="VALUE" x="76.962" y="26.67" size="1.778" layer="96" rot="R90"/>
+<instance part="R4" gate="G$1" x="66.04" y="25.4" smashed="yes" rot="R90">
+<attribute name="NAME" x="69.6214" y="21.59" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="69.342" y="26.67" size="1.778" layer="96" rot="R90"/>
 </instance>
 <instance part="R5" gate="G$1" x="182.88" y="55.88" smashed="yes" rot="R180">
 <attribute name="NAME" x="186.69" y="59.4614" size="1.778" layer="95" rot="R180"/>
@@ -8277,6 +8279,11 @@ An 0805 resistor inside a standard 1/4W 5% resistor. Makes for easy mods</descri
 <attribute name="NAME" x="184.15" y="41.275" size="1.778" layer="95"/>
 <attribute name="VALUE" x="184.15" y="22.86" size="1.778" layer="96"/>
 </instance>
+<instance part="JP3" gate="A" x="116.84" y="10.16" smashed="yes" rot="R270">
+<attribute name="NAME" x="127.635" y="16.51" size="1.778" layer="95" rot="R270"/>
+<attribute name="VALUE" x="106.68" y="16.51" size="1.778" layer="96" rot="R270"/>
+</instance>
+<instance part="X_4" gate="G$1" x="134.62" y="12.7" smashed="yes"/>
 </instances>
 <busses>
 </busses>
@@ -8284,33 +8291,33 @@ An 0805 resistor inside a standard 1/4W 5% resistor. Makes for easy mods</descri
 <net name="0" class="0">
 <segment>
 <pinref part="IC1" gate="A1" pin="GND"/>
-<wire x1="68.58" y1="30.48" x2="68.58" y2="33.02" width="0.1524" layer="91"/>
+<wire x1="60.96" y1="30.48" x2="60.96" y2="33.02" width="0.1524" layer="91"/>
 <pinref part="X_1" gate="G$1" pin="0"/>
 <pinref part="U$1" gate="G$1" pin="GND@1"/>
-<wire x1="68.58" y1="33.02" x2="68.58" y2="35.56" width="0.1524" layer="91"/>
-<wire x1="100.33" y1="33.02" x2="91.44" y2="33.02" width="0.1524" layer="91"/>
-<junction x="68.58" y="33.02"/>
+<wire x1="60.96" y1="33.02" x2="60.96" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="100.33" y1="33.02" x2="83.82" y2="33.02" width="0.1524" layer="91"/>
+<junction x="60.96" y="33.02"/>
 <pinref part="U$1" gate="G$1" pin="GND@0"/>
-<wire x1="91.44" y1="33.02" x2="68.58" y2="33.02" width="0.1524" layer="91"/>
-<wire x1="100.33" y1="43.18" x2="91.44" y2="43.18" width="0.1524" layer="91"/>
-<wire x1="91.44" y1="43.18" x2="91.44" y2="33.02" width="0.1524" layer="91"/>
-<junction x="91.44" y="33.02"/>
+<wire x1="83.82" y1="33.02" x2="60.96" y2="33.02" width="0.1524" layer="91"/>
+<wire x1="100.33" y1="43.18" x2="83.82" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="83.82" y1="43.18" x2="83.82" y2="33.02" width="0.1524" layer="91"/>
+<junction x="83.82" y="33.02"/>
 </segment>
 <segment>
 <pinref part="X_2" gate="G$1" pin="0"/>
 <pinref part="J2" gate="G$1" pin="1"/>
-<wire x1="86.36" y1="58.42" x2="86.36" y2="60.96" width="0.1524" layer="91"/>
-<wire x1="86.36" y1="60.96" x2="86.36" y2="66.04" width="0.1524" layer="91"/>
-<wire x1="86.36" y1="66.04" x2="33.02" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="78.74" y1="58.42" x2="78.74" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="78.74" y1="60.96" x2="78.74" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="78.74" y1="66.04" x2="25.4" y2="66.04" width="0.1524" layer="91"/>
 <pinref part="C4" gate="G$1" pin="-"/>
 <pinref part="C3" gate="G$1" pin="-"/>
-<wire x1="71.12" y1="53.34" x2="71.12" y2="60.96" width="0.1524" layer="91"/>
-<wire x1="71.12" y1="60.96" x2="86.36" y2="60.96" width="0.1524" layer="91"/>
-<junction x="71.12" y="60.96"/>
-<junction x="86.36" y="60.96"/>
+<wire x1="63.5" y1="53.34" x2="63.5" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="63.5" y1="60.96" x2="78.74" y2="60.96" width="0.1524" layer="91"/>
+<junction x="63.5" y="60.96"/>
+<junction x="78.74" y="60.96"/>
 <pinref part="LED1" gate="G$1" pin="C"/>
-<wire x1="93.98" y1="58.42" x2="91.44" y2="60.96" width="0.1524" layer="91"/>
-<wire x1="91.44" y1="60.96" x2="86.36" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="58.42" x2="83.82" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="83.82" y1="60.96" x2="78.74" y2="60.96" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="X_3" gate="G$1" pin="0"/>
@@ -8351,43 +8358,50 @@ An 0805 resistor inside a standard 1/4W 5% resistor. Makes for easy mods</descri
 <wire x1="162.56" y1="27.94" x2="162.56" y2="38.1" width="0.1524" layer="91"/>
 <junction x="162.56" y="38.1"/>
 </segment>
+<segment>
+<pinref part="JP3" gate="A" pin="1"/>
+<wire x1="124.46" y1="12.7" x2="124.46" y2="17.78" width="0.1524" layer="91"/>
+<wire x1="124.46" y1="17.78" x2="134.62" y2="17.78" width="0.1524" layer="91"/>
+<pinref part="X_4" gate="G$1" pin="0"/>
+<wire x1="134.62" y1="17.78" x2="134.62" y2="12.7" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="N$1" class="0">
 <segment>
 <pinref part="J2" gate="G$1" pin="3"/>
 <pinref part="J2" gate="G$1" pin="2"/>
-<wire x1="33.02" y1="63.5" x2="38.1" y2="63.5" width="0.1524" layer="91"/>
-<wire x1="38.1" y1="63.5" x2="38.1" y2="60.96" width="0.1524" layer="91"/>
-<wire x1="38.1" y1="60.96" x2="33.02" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="25.4" y1="63.5" x2="30.48" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="30.48" y1="63.5" x2="30.48" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="30.48" y1="60.96" x2="25.4" y2="60.96" width="0.1524" layer="91"/>
 <pinref part="D1" gate="G$1" pin="A"/>
-<wire x1="38.1" y1="63.5" x2="40.64" y2="63.5" width="0.1524" layer="91"/>
-<junction x="38.1" y="63.5"/>
+<wire x1="30.48" y1="63.5" x2="33.02" y2="63.5" width="0.1524" layer="91"/>
+<junction x="30.48" y="63.5"/>
 </segment>
 </net>
 <net name="N$34" class="0">
 <segment>
 <pinref part="C3" gate="G$1" pin="+"/>
-<wire x1="63.5" y1="60.96" x2="58.42" y2="60.96" width="0.1524" layer="91"/>
-<wire x1="58.42" y1="60.96" x2="58.42" y2="58.42" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="60.96" x2="50.8" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="50.8" y1="60.96" x2="50.8" y2="58.42" width="0.1524" layer="91"/>
 <pinref part="C4" gate="G$1" pin="+"/>
-<wire x1="58.42" y1="58.42" x2="58.42" y2="53.34" width="0.1524" layer="91"/>
-<wire x1="58.42" y1="53.34" x2="63.5" y2="53.34" width="0.1524" layer="91"/>
-<wire x1="58.42" y1="58.42" x2="53.34" y2="58.42" width="0.1524" layer="91"/>
-<junction x="58.42" y="58.42"/>
+<wire x1="50.8" y1="58.42" x2="50.8" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="50.8" y1="53.34" x2="55.88" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="50.8" y1="58.42" x2="45.72" y2="58.42" width="0.1524" layer="91"/>
+<junction x="50.8" y="58.42"/>
 <pinref part="D1" gate="G$1" pin="C"/>
-<wire x1="50.8" y1="63.5" x2="53.34" y2="63.5" width="0.1524" layer="91"/>
-<wire x1="53.34" y1="58.42" x2="53.34" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="43.18" y1="63.5" x2="45.72" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="45.72" y1="58.42" x2="45.72" y2="63.5" width="0.1524" layer="91"/>
 <pinref part="IC1" gate="A1" pin="VI"/>
-<wire x1="58.42" y1="43.18" x2="53.34" y2="43.18" width="0.1524" layer="91"/>
-<wire x1="53.34" y1="58.42" x2="53.34" y2="43.18" width="0.1524" layer="91"/>
-<junction x="53.34" y="58.42"/>
+<wire x1="50.8" y1="43.18" x2="45.72" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="45.72" y1="58.42" x2="45.72" y2="43.18" width="0.1524" layer="91"/>
+<junction x="45.72" y="58.42"/>
 </segment>
 </net>
 <net name="N$2" class="0">
 <segment>
 <pinref part="R3" gate="G$1" pin="1"/>
 <pinref part="LED1" gate="G$1" pin="A"/>
-<wire x1="91.44" y1="48.26" x2="93.98" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="83.82" y1="48.26" x2="86.36" y2="50.8" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$3" class="0">
@@ -8456,26 +8470,26 @@ An 0805 resistor inside a standard 1/4W 5% resistor. Makes for easy mods</descri
 <net name="N$11" class="0">
 <segment>
 <pinref part="S1" gate="1" pin="S"/>
-<wire x1="93.98" y1="17.78" x2="86.36" y2="17.78" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="17.78" x2="78.74" y2="17.78" width="0.1524" layer="91"/>
 <pinref part="S1" gate="1" pin="S1"/>
-<wire x1="86.36" y1="15.24" x2="93.98" y2="15.24" width="0.1524" layer="91"/>
-<wire x1="93.98" y1="15.24" x2="93.98" y2="17.78" width="0.1524" layer="91"/>
+<wire x1="78.74" y1="15.24" x2="86.36" y2="15.24" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="15.24" x2="86.36" y2="17.78" width="0.1524" layer="91"/>
 <pinref part="U$1" gate="G$1" pin="RST"/>
-<wire x1="93.98" y1="17.78" x2="93.98" y2="35.56" width="0.1524" layer="91"/>
-<wire x1="93.98" y1="35.56" x2="100.33" y2="35.56" width="0.1524" layer="91"/>
-<junction x="93.98" y="17.78"/>
+<wire x1="86.36" y1="17.78" x2="86.36" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="35.56" x2="100.33" y2="35.56" width="0.1524" layer="91"/>
+<junction x="86.36" y="17.78"/>
 </segment>
 </net>
 <net name="N$13" class="0">
 <segment>
 <pinref part="S1" gate="1" pin="P1"/>
-<wire x1="76.2" y1="15.24" x2="73.66" y2="15.24" width="0.1524" layer="91"/>
+<wire x1="68.58" y1="15.24" x2="66.04" y2="15.24" width="0.1524" layer="91"/>
 <pinref part="S1" gate="1" pin="P"/>
-<wire x1="76.2" y1="17.78" x2="73.66" y2="17.78" width="0.1524" layer="91"/>
+<wire x1="68.58" y1="17.78" x2="66.04" y2="17.78" width="0.1524" layer="91"/>
 <pinref part="R4" gate="G$1" pin="1"/>
-<wire x1="73.66" y1="17.78" x2="73.66" y2="20.32" width="0.1524" layer="91"/>
-<wire x1="73.66" y1="15.24" x2="73.66" y2="17.78" width="0.1524" layer="91"/>
-<junction x="73.66" y="17.78"/>
+<wire x1="66.04" y1="17.78" x2="66.04" y2="20.32" width="0.1524" layer="91"/>
+<wire x1="66.04" y1="15.24" x2="66.04" y2="17.78" width="0.1524" layer="91"/>
+<junction x="66.04" y="17.78"/>
 </segment>
 </net>
 <net name="N$14" class="0">
@@ -8517,29 +8531,33 @@ An 0805 resistor inside a standard 1/4W 5% resistor. Makes for easy mods</descri
 <pinref part="R7" gate="G$1" pin="2"/>
 <wire x1="144.78" y1="25.4" x2="142.24" y2="25.4" width="0.1524" layer="91"/>
 <pinref part="IC1" gate="A1" pin="VO"/>
-<wire x1="142.24" y1="25.4" x2="96.52" y2="25.4" width="0.1524" layer="91"/>
-<wire x1="78.74" y1="43.18" x2="81.28" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="142.24" y1="25.4" x2="121.92" y2="25.4" width="0.1524" layer="91"/>
+<wire x1="121.92" y1="25.4" x2="88.9" y2="25.4" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="43.18" x2="73.66" y2="43.18" width="0.1524" layer="91"/>
 <pinref part="U$1" gate="G$1" pin="VIN"/>
-<wire x1="81.28" y1="43.18" x2="88.9" y2="43.18" width="0.1524" layer="91"/>
-<wire x1="100.33" y1="30.48" x2="96.52" y2="30.48" width="0.1524" layer="91"/>
-<wire x1="96.52" y1="30.48" x2="88.9" y2="30.48" width="0.1524" layer="91"/>
-<wire x1="88.9" y1="30.48" x2="88.9" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="73.66" y1="43.18" x2="81.28" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="100.33" y1="30.48" x2="88.9" y2="30.48" width="0.1524" layer="91"/>
+<wire x1="88.9" y1="30.48" x2="81.28" y2="30.48" width="0.1524" layer="91"/>
+<wire x1="81.28" y1="30.48" x2="81.28" y2="35.56" width="0.1524" layer="91"/>
 <pinref part="R3" gate="G$1" pin="2"/>
-<wire x1="88.9" y1="35.56" x2="88.9" y2="43.18" width="0.1524" layer="91"/>
-<wire x1="81.28" y1="48.26" x2="81.28" y2="43.18" width="0.1524" layer="91"/>
-<junction x="81.28" y="43.18"/>
+<wire x1="81.28" y1="35.56" x2="81.28" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="73.66" y1="48.26" x2="73.66" y2="43.18" width="0.1524" layer="91"/>
+<junction x="73.66" y="43.18"/>
 <pinref part="R4" gate="G$1" pin="2"/>
-<wire x1="73.66" y1="30.48" x2="73.66" y2="35.56" width="0.1524" layer="91"/>
-<wire x1="73.66" y1="35.56" x2="88.9" y2="35.56" width="0.1524" layer="91"/>
-<junction x="88.9" y="35.56"/>
-<wire x1="96.52" y1="25.4" x2="96.52" y2="30.48" width="0.1524" layer="91"/>
-<junction x="96.52" y="30.48"/>
+<wire x1="66.04" y1="30.48" x2="66.04" y2="35.56" width="0.1524" layer="91"/>
+<wire x1="66.04" y1="35.56" x2="81.28" y2="35.56" width="0.1524" layer="91"/>
+<junction x="81.28" y="35.56"/>
+<wire x1="88.9" y1="25.4" x2="88.9" y2="30.48" width="0.1524" layer="91"/>
+<junction x="88.9" y="30.48"/>
 <wire x1="142.24" y1="25.4" x2="142.24" y2="22.86" width="0.1524" layer="91"/>
 <junction x="142.24" y="25.4"/>
 <wire x1="142.24" y1="22.86" x2="180.34" y2="22.86" width="0.1524" layer="91"/>
 <wire x1="180.34" y1="22.86" x2="180.34" y2="33.02" width="0.1524" layer="91"/>
 <wire x1="180.34" y1="33.02" x2="187.96" y2="33.02" width="0.1524" layer="91"/>
 <pinref part="JP4" gate="A" pin="3"/>
+<pinref part="JP3" gate="A" pin="2"/>
+<wire x1="121.92" y1="12.7" x2="121.92" y2="25.4" width="0.1524" layer="91"/>
+<junction x="121.92" y="25.4"/>
 </segment>
 </net>
 <net name="N$32" class="0">
@@ -8562,6 +8580,46 @@ An 0805 resistor inside a standard 1/4W 5% resistor. Makes for easy mods</descri
 <wire x1="160.02" y1="30.48" x2="160.02" y2="33.02" width="0.1524" layer="91"/>
 <pinref part="JP2" gate="A" pin="3"/>
 <wire x1="160.02" y1="33.02" x2="170.18" y2="33.02" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$35" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="SD1"/>
+<wire x1="100.33" y1="53.34" x2="99.06" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="99.06" y1="53.34" x2="99.06" y2="22.86" width="0.1524" layer="91"/>
+<pinref part="JP3" gate="A" pin="3"/>
+<wire x1="99.06" y1="22.86" x2="119.38" y2="22.86" width="0.1524" layer="91"/>
+<wire x1="119.38" y1="22.86" x2="119.38" y2="12.7" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$33" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="SD0"/>
+<wire x1="100.33" y1="48.26" x2="96.52" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="96.52" y1="48.26" x2="96.52" y2="20.32" width="0.1524" layer="91"/>
+<wire x1="96.52" y1="20.32" x2="116.84" y2="20.32" width="0.1524" layer="91"/>
+<pinref part="JP3" gate="A" pin="4"/>
+<wire x1="116.84" y1="20.32" x2="116.84" y2="12.7" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$36" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="CLK"/>
+<wire x1="100.33" y1="45.72" x2="93.98" y2="45.72" width="0.1524" layer="91"/>
+<wire x1="93.98" y1="45.72" x2="93.98" y2="17.78" width="0.1524" layer="91"/>
+<wire x1="93.98" y1="17.78" x2="114.3" y2="17.78" width="0.1524" layer="91"/>
+<pinref part="JP3" gate="A" pin="5"/>
+<wire x1="114.3" y1="17.78" x2="114.3" y2="12.7" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$37" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="CMD"/>
+<wire x1="100.33" y1="50.8" x2="91.44" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="91.44" y1="50.8" x2="91.44" y2="15.24" width="0.1524" layer="91"/>
+<wire x1="91.44" y1="15.24" x2="111.76" y2="15.24" width="0.1524" layer="91"/>
+<pinref part="JP3" gate="A" pin="6"/>
+<wire x1="111.76" y1="15.24" x2="111.76" y2="12.7" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

@@ -164,7 +164,7 @@
 <wire x1="133.965" y1="33.6496" x2="131.7496" y2="35.865" width="0" layer="20" curve="90"/>
 <wire x1="131.7496" y1="35.865" x2="4.115" y2="35.865" width="0" layer="20"/>
 <wire x1="4.115" y1="35.865" x2="1.905" y2="33.655" width="0" layer="20" curve="90"/>
-<text x="71.755" y="13.335" size="1.778" layer="21">Home Weather
+<text x="93.4974" y="17.653" size="1.778" layer="21">Home Weather
 Station Mini 
       V1.0</text>
 <text x="73.66" y="32.385" size="1.778" layer="21">sashwat.in | sashuu6.github.io</text>
@@ -196,7 +196,7 @@ Station Mini
 <text x="53.3908" y="4.7752" size="1.016" layer="21">10K Ω</text>
 <text x="116.4336" y="24.5872" size="1.778" layer="21">BMP280</text>
 <text x="117.475" y="10.16" size="1.778" layer="21">DHT22</text>
-<text x="93.98" y="17.78" size="2.54" layer="21">NodeMCU</text>
+<text x="67.6148" y="19.177" size="2.54" layer="21">NodeMCU</text>
 <text x="124.46" y="3.81" size="1.016" layer="21" rot="R90">GND</text>
 <text x="121.92" y="3.175" size="1.016" layer="21" rot="R90">DATA</text>
 <text x="119.38" y="3.81" size="1.016" layer="21" rot="R90">3.3V</text>
@@ -260,12 +260,12 @@ Station Mini
 <text x="78.486" y="26.9494" size="1.016" layer="21" rot="R90">D2</text>
 <text x="81.0006" y="26.8732" size="1.016" layer="21" rot="R90">D3</text>
 <text x="83.6168" y="26.67" size="1.016" layer="21" rot="R90">D4</text>
-<text x="86.1568" y="25.8826" size="1.016" layer="21" rot="R90">3.3V</text>
+<text x="86.1568" y="25.6794" size="1.016" layer="21" rot="R90">3.3V</text>
 <text x="88.7222" y="25.4762" size="1.016" layer="21" rot="R90">GND</text>
 <text x="91.3892" y="26.4668" size="1.016" layer="21" rot="R90">D5</text>
 <text x="106.553" y="25.4" size="1.016" layer="21" rot="R90">GND</text>
 <text x="109.0168" y="25.654" size="1.016" layer="21" rot="R90">3.3V</text>
-<text x="96.266" y="8.2804" size="1.016" layer="21" rot="R90">GND</text>
+<text x="96.2914" y="8.3566" size="0.762" layer="21" rot="R90">GND</text>
 <text x="106.426" y="8.382" size="1.016" layer="21" rot="R90">GND</text>
 <text x="103.7336" y="8.3566" size="1.016" layer="21" rot="R90">RESET</text>
 <text x="109.0168" y="8.3566" size="1.016" layer="21" rot="R90">VIN</text>
@@ -281,6 +281,17 @@ Station Mini
 GUAGE</text>
 <text x="119.6594" y="20.8788" size="1.016" layer="21">RAIN
 SENSOR</text>
+<text x="93.6498" y="8.3312" size="0.762" layer="21" rot="R90">SCK</text>
+<text x="91.186" y="8.2804" size="0.762" layer="21" rot="R90">MOSI</text>
+<text x="88.5952" y="8.382" size="0.762" layer="21" rot="R90">CS</text>
+<text x="86.0044" y="8.255" size="0.762" layer="21" rot="R90">MISO</text>
+<text x="84.8614" y="14.1224" size="1.016" layer="21" rot="R90">GND</text>
+<text x="87.2744" y="14.0462" size="1.016" layer="21" rot="R90">VCC</text>
+<text x="89.8398" y="14.097" size="1.016" layer="21" rot="R90">MISO</text>
+<text x="92.3798" y="13.97" size="1.016" layer="21" rot="R90">MOSI</text>
+<text x="94.996" y="14.0716" size="1.016" layer="21" rot="R90">SCK</text>
+<text x="97.5106" y="14.0716" size="1.016" layer="21" rot="R90">CS</text>
+<text x="83.8708" y="17.7038" size="1.016" layer="21">Micro SDcard Module</text>
 </plain>
 <libraries>
 <library name="adafruit">
@@ -1114,7 +1125,7 @@ design rules under a new name.</description>
 <attribute name="VALUE" x="45.593" y="13.335" size="1.27" layer="27" ratio="10" rot="R180"/>
 </element>
 <element name="U$1" library="ESP12E_DEVKIT" package="ESP12E_DEVKIT" value="ESP12E_DEVKIT" x="90.805" y="18.415" smashed="yes" rot="R90">
-<attribute name="NAME" x="75.057" y="25.4508" size="1.778" layer="25" rot="R180"/>
+<attribute name="NAME" x="71.501" y="25.4508" size="1.778" layer="25" rot="R180"/>
 <attribute name="VALUE" x="109.855" y="25.4" size="1.778" layer="27" rot="R180"/>
 </element>
 <element name="R5" library="adafruit" package="0805-THM" value="10K" x="55.8038" y="32.3596" smashed="yes">
@@ -1133,6 +1144,10 @@ design rules under a new name.</description>
 <attribute name="NAME" x="133.024" y="15.7212" size="1.27" layer="25" ratio="10" rot="R180"/>
 <attribute name="POPULARITY" value="0" x="130.9116" y="21.2344" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="VALUE" x="133.6616" y="16.4844" size="1.27" layer="27" rot="R90"/>
+</element>
+<element name="JP3" library="adafruit" package="1X06" value="" x="90.7034" y="12.2174" smashed="yes">
+<attribute name="NAME" x="82.7786" y="10.795" size="1.27" layer="25" ratio="10" rot="R90"/>
+<attribute name="VALUE" x="83.0834" y="9.0424" size="1.27" layer="27"/>
 </element>
 </elements>
 <signals>
@@ -1201,6 +1216,14 @@ design rules under a new name.</description>
 <wire x1="127.127" y1="24.8412" x2="127.127" y2="17.4498" width="0.1524" layer="1"/>
 <wire x1="127.127" y1="17.4498" x2="124.6632" y2="14.986" width="0.1524" layer="1"/>
 <wire x1="124.6632" y1="14.986" x2="124.6632" y2="9.0932" width="0.1524" layer="1"/>
+<contactref element="JP3" pad="1"/>
+<wire x1="84.3534" y1="12.2174" x2="84.3534" y2="7.50489375" width="0.1524" layer="16"/>
+<wire x1="84.3534" y1="7.50489375" x2="84.3788" y2="7.47949375" width="0.1524" layer="16"/>
+<wire x1="84.3788" y1="5.0292" x2="85.4964" y2="3.9116" width="0.1524" layer="16"/>
+<wire x1="84.3788" y1="7.47949375" x2="84.3788" y2="5.0292" width="0.1524" layer="16"/>
+<wire x1="85.4964" y1="3.9116" x2="94.8182" y2="3.9116" width="0.1524" layer="16"/>
+<wire x1="95.885" y1="4.9784" x2="95.885" y2="6.985" width="0.1524" layer="16"/>
+<wire x1="94.8182" y1="3.9116" x2="95.885" y2="4.9784" width="0.1524" layer="16"/>
 </signal>
 <signal name="N$1">
 <contactref element="J2" pad="3"/>
@@ -1317,16 +1340,16 @@ design rules under a new name.</description>
 <contactref element="S1" pad="2"/>
 <contactref element="U$1" pad="RST"/>
 <wire x1="39.2938" y1="5.9944" x2="45.7962" y2="5.9944" width="0.1524" layer="1"/>
-<wire x1="103.505" y1="6.985" x2="103.505" y2="9.525" width="0.1524" layer="1"/>
-<wire x1="68.09985" y1="10.9472" x2="67.94765" y2="10.795" width="0.1524" layer="1"/>
-<wire x1="67.94765" y1="10.795" x2="66.675" y2="10.795" width="0.1524" layer="1"/>
-<wire x1="66.675" y1="10.795" x2="65.405" y2="9.525" width="0.1524" layer="1"/>
+<wire x1="103.505" y1="6.985" x2="103.505" y2="12.8016" width="0.1524" layer="1"/>
+<wire x1="70.05565" y1="14.173" x2="67.69365" y2="11.811" width="0.1524" layer="1"/>
+<wire x1="67.69365" y1="11.811" x2="67.691" y2="11.811" width="0.1524" layer="1"/>
+<wire x1="67.691" y1="11.811" x2="65.405" y2="9.525" width="0.1524" layer="1"/>
 <wire x1="65.405" y1="9.525" x2="65.405" y2="6.985" width="0.1524" layer="1"/>
 <wire x1="65.405" y1="6.985" x2="62.3062" y2="3.8862" width="0.1524" layer="1"/>
 <wire x1="62.3062" y1="3.8862" x2="47.9044" y2="3.8862" width="0.1524" layer="1"/>
 <wire x1="47.9044" y1="3.8862" x2="45.7962" y2="5.9944" width="0.1524" layer="1"/>
-<wire x1="103.505" y1="9.525" x2="102.0828" y2="10.9472" width="0.1524" layer="1"/>
-<wire x1="102.0828" y1="10.9472" x2="68.09985" y2="10.9472" width="0.1524" layer="1"/>
+<wire x1="103.505" y1="12.8016" x2="102.1336" y2="14.173" width="0.1524" layer="1"/>
+<wire x1="102.1336" y1="14.173" x2="70.05565" y2="14.173" width="0.1524" layer="1"/>
 </signal>
 <signal name="N$13">
 <contactref element="S1" pad="4"/>
@@ -1452,6 +1475,13 @@ design rules under a new name.</description>
 <wire x1="127.9906" y1="5.0292" x2="126.1364" y2="6.8834" width="0.1524" layer="1"/>
 <wire x1="128.397" y1="5.0292" x2="110.5408" y2="5.0292" width="0.1524" layer="1"/>
 <wire x1="110.5408" y1="5.0292" x2="108.585" y2="6.985" width="0.1524" layer="1"/>
+<contactref element="JP3" pad="2"/>
+<wire x1="86.8934" y1="12.2174" x2="86.8934" y2="7.50489375" width="0.1524" layer="1"/>
+<wire x1="86.8934" y1="7.50489375" x2="86.9188" y2="7.47949375" width="0.1524" layer="1"/>
+<wire x1="86.9188" y1="7.47949375" x2="86.9188" y2="5.9182" width="0.1524" layer="1"/>
+<wire x1="86.9188" y1="5.9182" x2="87.4014" y2="5.4356" width="0.1524" layer="1"/>
+<wire x1="107.0356" y1="5.4356" x2="108.585" y2="6.985" width="0.1524" layer="1"/>
+<wire x1="87.4014" y1="5.4356" x2="107.0356" y2="5.4356" width="0.1524" layer="1"/>
 </signal>
 <signal name="N$32">
 <contactref element="U$1" pad="D7"/>
@@ -1471,6 +1501,32 @@ design rules under a new name.</description>
 <wire x1="118.745" y1="12.954" x2="118.745" y2="8.255" width="0.1524" layer="1"/>
 <wire x1="109.5248" y1="14.097" x2="117.602" y2="14.097" width="0.1524" layer="1"/>
 <wire x1="117.602" y1="14.097" x2="118.745" y2="12.954" width="0.1524" layer="1"/>
+</signal>
+<signal name="N$35">
+<contactref element="U$1" pad="SD1"/>
+<contactref element="JP3" pad="3"/>
+<wire x1="85.725" y1="6.985" x2="89.4334" y2="10.6934" width="0.1524" layer="16"/>
+<wire x1="89.4334" y1="10.6934" x2="89.4334" y2="12.2174" width="0.1524" layer="16"/>
+</signal>
+<signal name="N$33">
+<contactref element="U$1" pad="SD0"/>
+<contactref element="JP3" pad="4"/>
+<wire x1="90.805" y1="6.985" x2="91.9734" y2="8.1534" width="0.1524" layer="16"/>
+<wire x1="91.9734" y1="8.1534" x2="91.9734" y2="12.2174" width="0.1524" layer="16"/>
+</signal>
+<signal name="N$36">
+<contactref element="U$1" pad="CLK"/>
+<contactref element="JP3" pad="5"/>
+<wire x1="93.345" y1="6.985" x2="94.5134" y2="8.1534" width="0.1524" layer="16"/>
+<wire x1="94.5134" y1="8.1534" x2="94.5134" y2="12.2174" width="0.1524" layer="16"/>
+</signal>
+<signal name="N$37">
+<contactref element="U$1" pad="CMD"/>
+<contactref element="JP3" pad="6"/>
+<wire x1="88.265" y1="6.985" x2="90.3478" y2="9.0678" width="0.1524" layer="1"/>
+<wire x1="90.3478" y1="9.0678" x2="94.9452" y2="9.0678" width="0.1524" layer="1"/>
+<wire x1="94.9452" y1="9.0678" x2="97.0534" y2="11.176" width="0.1524" layer="1"/>
+<wire x1="97.0534" y1="11.176" x2="97.0534" y2="12.2174" width="0.1524" layer="1"/>
 </signal>
 </signals>
 <mfgpreviewcolors>
