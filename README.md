@@ -2,25 +2,25 @@
 
 ## Introduction
 
-The Home Weather Station Mini is a DIY weather station that collects the following data and uploads the data to firebase:-
+The Home Weather Station Mini is a DIY weather station that collects the following data and uploads the data to database:-
 
 1. Temperature
 2. Humidity
 3. Altitude
+4. Rain (CM)
+5. Rain duration and strength
 
 ## Features
 
-1. Collects temperature, humidity and altitude and stores the data in firebase.
+1. Collects data and stores the data in database.
 2. A web application to show current weather data.
-3. A PyQT application for basic statistics
 
 ## Folder Structure
 
-1. application: PyQT application for basic statistic works.
-2. docs: PCB images (Top, Bottom and Drill).
-3. eagle-design: Eagle design of PCB.
-4. libraries: Contains the libraries to be added to Arduino IDE.
-5. nodemcu-code: Contains nodemcu code for collecting weather data, web application to show weather data and upload data to firebase.
+1. docs: PCB images (Top, Bottom and Drill).
+2. eagle-design: Eagle design of PCB.
+3. libraries: Contains the libraries to be added to Arduino IDE.
+4. nodemcu-code: Contains nodemcu code for collecting weather data, web application to show weather data and upload data to firebase.
 
 ## Components Used
 
@@ -68,6 +68,8 @@ Discount code for Tomson Electronics : ZENOOFF2020
 |-------------|----------|
 | DHT22 | Temperature, Humidity and Heat Index |
 | BMP280 | Temperature, atmospheric pressure and altitude |
+| Rain Guage | Rain in CM |
+| Rain drop sensor | Rain Duration and Strength |
 
 ## Contributions
 
