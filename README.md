@@ -7,7 +7,7 @@ The Home Weather Station Mini is a DIY weather station that collects the followi
 1. Temperature
 2. Humidity
 3. Altitude
-4. Rain (CM)
+4. Rain (in cm)
 5. Rain duration and strength
 
 ## Features
@@ -37,7 +37,7 @@ The Home Weather Station Mini is a DIY weather station that collects the followi
 11. Rain drop detection sensor Module - [Tomson Electronics](https://www.tomsonelectronics.com/products/rain-drop-detection-sensor-rain-detector-weather-module)
 12. Reed switch - [Tomson Electronics](https://www.tomsonelectronics.com/products/reed-switch-16mm)
 13. Resistpr (1K, 10K Ohms) - [Tomson Electronics](https://www.tomsonelectronics.com/products/1ko-12ko-carbon-film-resistor)
-14. Resistor (220 Ohms) - [Tomson Electronics](https://www.tomsonelectronics.com/products/100k-ohm-metal-film-resistor?variant=8737726038107) 
+14. Resistor (220 Ohms) - [Tomson Electronics](https://www.tomsonelectronics.com/products/100k-ohm-metal-film-resistor?variant=8737726038107)
 15. Pole, Wires, tapes and zip ties
 
 Discount code for Tomson Electronics : ZENOOFF2020
@@ -59,8 +59,8 @@ Discount code for Tomson Electronics : ZENOOFF2020
 ## Pre-Installation Steps
 
 1. Connect the sensors as per circuit diagram.
-2. Add the necessary credentials in nodemcu code.
-3. Flash the code in NodeMCU
+2. Connect to NodeMCU WiFi hotspot (SSID: Home Weather Station Mini) WiFi hotspot
+3. Flash the code in NodeMCU.
 
 ## Sensor Info
 
