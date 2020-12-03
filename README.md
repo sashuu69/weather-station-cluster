@@ -20,7 +20,8 @@ The Home Weather Station Mini is a DIY weather station that collects the followi
 1. docs: PCB images (Top, Bottom and Drill).
 2. eagle-design: Eagle design of PCB.
 3. libraries: Contains the libraries to be added to Arduino IDE.
-4. nodemcu-code: Contains nodemcu code for collecting weather data, web application to show weather data and upload data to firebase.
+4. code/nodemcu-code: Contains nodemcu code for collecting weather data.
+5. code/debug-code: Contains code to debug sensors.
 
 ## Components Used
 
@@ -59,8 +60,13 @@ Discount code for Tomson Electronics : ZENOOFF2020
 ## Pre-Installation Steps
 
 1. Connect the sensors as per circuit diagram.
-2. Connect to NodeMCU WiFi hotspot (SSID: Home Weather Station Mini) WiFi hotspot
-3. Flash the code in NodeMCU.
+2. Flash the NodeMCU code.
+3. Connect to NodeMCU WiFi hotspot (SSID: Home Weather Station Mini) WiFi hotspot.
+4. Goto http://192.168.4.1 (NodeMCU gateway).
+5. Enter WiFi credentials.
+6. After connecting to WiFi, use Fing to get IP address of NodeMCU.
+7. Goto http://ip-address and enter username (admin) and password (pasword).
+8. Enter server IP address, API key and other necessary details.
 
 ## Sensor Info
 
