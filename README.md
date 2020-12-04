@@ -17,11 +17,13 @@ The Home Weather Station Mini is a DIY weather station that collects the followi
 
 ## Folder Structure
 
-1. docs: PCB images (Top, Bottom and Drill).
-2. eagle-design: Eagle design of PCB.
-3. libraries: Contains the libraries to be added to Arduino IDE.
+1. cad-files/main-board: CAD files for control box.
+2. cad-files/rain-guage: CAD files for rain guage.
+3. code/debug-code: Contains code to debug sensors.
 4. code/nodemcu-code: Contains nodemcu code for collecting weather data.
-5. code/debug-code: Contains code to debug sensors.
+5. docs: PCB images (Top, Bottom and Drill).
+6. eagle-design: Eagle design of PCB.
+7. libraries: Contains the libraries to be added to Arduino IDE.
 
 ## Components Used
 
