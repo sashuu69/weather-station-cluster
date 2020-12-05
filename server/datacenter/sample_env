@@ -19,7 +19,7 @@
         MYSQL_ROOT_PASSWORD=tiger
         MYSQL_USER=docker
         MYSQL_PASSWORD=docker
-        MYSQL_DATABASE=exam-marker
+        MYSQL_DATABASE=home-weather-station-mini
 
 # Home Weather Station Mini - PHPMyAdmin
 
