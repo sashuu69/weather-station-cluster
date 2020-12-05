@@ -1,4 +1,26 @@
 version: "3.7"
 
 services:
-  api_handler:
+  # Device API Handler
+  device_api_handler:
+    build:
+      context: ./bin/device-api-handler
+    image: sashuu6/home_weather_station_mini_frontend:device_api
+    container_name: "device_api-home_weather_station_mini_frontend-sashuu6"
+    restart: "always"
+    ports:
+      - "${API_DEVICE_PORT}:5000"
+    volumes:
+      - ${LOG_FILE-./logs/device_api_handler/}:/var/log/device_api_handler/
+
+  # Public API Handler
+  public_api_handler:
+    build:
+      context: ./bin/public-api-handler
+    image: sashuu6/home_weather_station_mini_frontend:public_api
+    container_name: "public_api-home_weather_station_mini_frontend-sashuu6"
+    restart: "always"
+    ports:
+      - "${PUBLIC_DEVICE_PORT}:5000"
+    volumes:
+      - ${LOG_FILE-./logs/public_api_handler/}:/var/log/public_api_handler/
