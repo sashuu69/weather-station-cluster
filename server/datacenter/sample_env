@@ -4,7 +4,7 @@
         MONGODB_PORT=27017
         MONGODB_USERNAME=docker
         MONGODB_PASSWORD=docker
-        MONGODB_DATABASE=nodejs_mongodb
+        MONGODB_DATABASE=home-weather-station-mini
 
 # Home Weather Station Mini - MongoExpress
 
