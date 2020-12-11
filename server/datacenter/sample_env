@@ -1,0 +1,19 @@
+# Home Weather Station Mini - Controller
+    Home Weather Station Mini - Controller - Config
+        CONTROLLER_PORT=80
+
+# Home Weather Station Mini - Postgres
+
+    # Home Weather Station Mini - Postgres - Config
+        POSTGRES_TIMEZONE=India/Kolkata
+        HOST_MACHINE_POSTGRES_PORT=5432
+        POSTGRES_PASS=docker
+        POSTGRES_USR=docker
+        POSTGRES_DATABASE=home-weather-station
+
+# Home Weather Station Mini - PGADMIN
+
+    # Home Weather Station Mini - PGADMIN - Config
+        PGADMIN_DEFAULT_EMAIL=sashwat0001@gmail.com
+        PGADMIN_DEFAULT_PASSWORD=docker
+        PGADMIN_PORT=6021

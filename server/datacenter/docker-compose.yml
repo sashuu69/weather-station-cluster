@@ -1,0 +1,46 @@
+version: "3.7"
+
+services:
+  # Controller
+  controller:
+    build:
+      context: ./bin/controller
+    image: sashuu6/home_weather_station_mini_datacenter:controller
+    container_name: "controller-home_weather_station_mini_datacenter-sashuu6"
+    restart: "always"
+    ports:
+      - "${CONTROLLER_PORT}:5000"
+    volumes:
+      - ${LOG_FILE-./logs/device_api_handler/}:/var/log/controller_log/
+
+  # Postgres
+  postgres:
+    build:
+      context: ./bin/postgres
+    image: sashuu6/home_weather_station_mini_datacenter:postgres
+    container_name: "postgres-home_weather_station_mini_datacenter-sashuu6"
+    restart: "always"
+    ports:
+      - "${HOST_MACHINE_POSTGRES_PORT}:5432"
+    environment:
+      - TZ=${POSTGRES_TIMEZONE}
+      - POSTGRES_PASSWORD=${POSTGRES_PASS}
+      - POSTGRES_USER=${POSTGRES_USR}
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+    volumes:
+      - ${POSTGRES_DATA-./data/postgres}:/var/lib/postgresql/data
+
+  # PG Admin
+  pgadmin:
+    build:
+      context: ./bin/pgadmin
+    image: techwithus/gisaplha:pgadmin
+    container_name: "pgadmin-gisalpha-techwithus"
+    restart: "always"
+    links:
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "${PGADMIN_PORT}:80"
