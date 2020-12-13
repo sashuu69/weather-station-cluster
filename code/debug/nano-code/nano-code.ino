@@ -1,8 +1,8 @@
 /*
  * Project Name: Home Weather Station Mini
- * Program Name: Arduino Nano code
+ * Program Name: Arduino Nano debug code
  * Created on: 13/12/2020 08:04:00 PM
- * Last Modified: 13/12/2020 08:04:00 PM
+ * Last Modified: 13/12/2020 09:53:00 PM
  * Created by: Sashwat K
  */
 
@@ -111,5 +111,6 @@ void loop() {
   digitalWrite(CONNSTATUSLEDPIN, HIGH);
   delay(1000);
   digitalWrite(CONNSTATUSLEDPIN, LOW);
-  delay(1000);
+  Serial.println("---------------------------\n\n");
+  delay(5000);
 }
