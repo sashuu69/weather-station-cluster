@@ -33,6 +33,7 @@ void setup() {
   Serial.println("\n=========================");
   Serial.println("Home Weather Station Mini");
   Serial.println("------ Arduino Nano -------");
+  Serial.println("------- Debug Mode --------");
   Serial.println("=========================\n");
 
   Serial.println("*************************");
@@ -112,5 +113,6 @@ void loop() {
   delay(1000);
   digitalWrite(CONNSTATUSLEDPIN, LOW);
   Serial.println("---------------------------\n\n");
+  
   delay(5000);
 }
