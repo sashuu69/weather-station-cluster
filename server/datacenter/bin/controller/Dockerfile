@@ -8,5 +8,7 @@ RUN apt-get upgrade -y
 ADD ./code /var/lib/controller
 WORKDIR /var/lib/controller
 
+RUN python3 deployment.py development
+
 RUN pip3 install -r requirements.txt
 CMD python3 app.py

@@ -1,13 +1,26 @@
-import pymongo
+import psycopg2
+from configparser import ConfigParser  # Library for importing .ini file
+parameters_file = "parameters.ini"
 
-mongodb_url = "mongodb://datacenter.gisalpha.sashwat.in:27017"
-myclient = pymongo.MongoClient(mongodb_url)
-mydb = myclient["home-weather-station"]
-mydb.auth("docker", "docker")
+
+class ControllerGlobal:
+    def __init__(self):
+        config = ConfigParser()
+        config.read(parameters_file)
+        self.deployment_model = config["deployment"]["model"]
+
+        self.postgres_url = config[
+            self.deployment_model]["postgres_url"]
+        self.postgres_database_name = config[
+            self.deployment_model]["postgres_database_name"]
+        self.postgres_username = config[
+            self.deployment_model]["postgres_username"]
+        self.postgres_password = config[
+            self.deployment_model]["postgres_password"]
 
 
 def main():
-    print(myclient.list_database_names())
+    global_config = ControllerGlobal()
 
 
 if __name__ == "__main__":
