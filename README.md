@@ -81,4 +81,5 @@ Discount code for Tomson Electronics : ZENOOFF2020
 
 ## Contributions
 
-1. Sashwat K (@sashuu6) <sashwat0001@gmail.com>
+1. Sashwat K (@sashuu6) <hi@sashwat.in>
+2. Tharun P Karun (@tharunpkarun) <tpk@tharun.me>
