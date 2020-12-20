@@ -8,7 +8,7 @@
 
 // DHT22
 #include "DHT.h"
-#define DHTPIN D3
+#define DHTPIN 3
 #define DHTTYPE DHT22
 DHT dht(DHTPIN, DHTTYPE);
 
@@ -22,7 +22,7 @@ Adafruit_BMP280 bmp;
 #define RAINSENSORPIN A0
 
 // Rain Guage
-#define RAINGUAGEPIN D4
+#define RAINGUAGEPIN 4
 
 void setup() {
   // put your setup code here, to run once:
@@ -42,19 +42,20 @@ void setup() {
   dht.begin();
   
   // Initialise BMP280
-  Serial.println("2. Initialising BMP280..");
-  if(!bmp.begin()){
-    Serial.println("\t BMP init failed!");
-    while(1);
-  }
-  else {
-    Serial.println("\t BMP init success!");
-    bmp.setSampling(Adafruit_BMP280::MODE_NORMAL,     /* Operating Mode. */
-                    Adafruit_BMP280::SAMPLING_X2,     /* Temp. oversampling */
-                    Adafruit_BMP280::SAMPLING_X16,    /* Pressure oversampling */
-                    Adafruit_BMP280::FILTER_X16,      /* Filtering. */
-                    Adafruit_BMP280::STANDBY_MS_500); /* Standby time. */
-  }
+  bmp.begin();
+//  Serial.println("2. Initialising BMP280..");
+//  if(!bmp.begin()){
+//    Serial.println("\t BMP init failed!");
+//    while(1);
+//  }
+//  else {
+//    Serial.println("\t BMP init success!");
+//    bmp.setSampling(Adafruit_BMP280::MODE_NORMAL,     /* Operating Mode. */
+//                    Adafruit_BMP280::SAMPLING_X2,     /* Temp. oversampling */
+//                    Adafruit_BMP280::SAMPLING_X16,    /* Pressure oversampling */
+//                    Adafruit_BMP280::FILTER_X16,      /* Filtering. */
+//                    Adafruit_BMP280::STANDBY_MS_500); /* Standby time. */
+//  }
 
   // Initialise rain sensor
   Serial.println("3. Initialising rain sensor");
