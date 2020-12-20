@@ -8,7 +8,7 @@
 
 // DHT22
 #include "DHT.h"
-#define DHTPIN 3
+#define DHTPIN D3
 #define DHTTYPE DHT22
 DHT dht(DHTPIN, DHTTYPE);
 
@@ -19,13 +19,10 @@ DHT dht(DHTPIN, DHTTYPE);
 Adafruit_BMP280 bmp;
 
 // Rain Sensor
-#define RAINSENSORPIN A3
+#define RAINSENSORPIN A0
 
 // Rain Guage
-#define RAINGUAGEPIN 4
-
-// Connection LED
-#define CONNSTATUSLEDPIN 5
+#define RAINGUAGEPIN D4
 
 void setup() {
   // put your setup code here, to run once:
@@ -65,9 +62,6 @@ void setup() {
   
   Serial.println("4. Initialising rain guage");
   pinMode(INPUT, RAINGUAGEPIN);
-
-  Serial.println("5. Initialising connection LED");
-  pinMode(OUTPUT, CONNSTATUSLEDPIN);
   
   Serial.println("initialization complete.");
   Serial.println("*************************");
@@ -108,10 +102,7 @@ void loop() {
   int rain_guage_data = digitalRead(RAINGUAGEPIN);
   Serial.println("4. Rain Guage Data:-");
   Serial.print("\t i. Value: ");Serial.println(rain_guage_data);
-
-  digitalWrite(CONNSTATUSLEDPIN, HIGH);
-  delay(1000);
-  digitalWrite(CONNSTATUSLEDPIN, LOW);
+  
   Serial.println("---------------------------\n\n");
   
   delay(5000);
