@@ -18,6 +18,10 @@ DHT dht(DHTPIN, DHTTYPE);
 #include <Adafruit_BMP280.h>
 Adafruit_BMP280 bmp;
 
+// RTC Module
+#include <RTClib.h>
+RTC_DS1307 rtc;
+
 // Rain Sensor
 #define RAINSENSORPIN A0
 
@@ -42,26 +46,34 @@ void setup() {
   dht.begin();
   
   // Initialise BMP280
-  bmp.begin();
-//  Serial.println("2. Initialising BMP280..");
-//  if(!bmp.begin()){
-//    Serial.println("\t BMP init failed!");
-//    while(1);
-//  }
-//  else {
-//    Serial.println("\t BMP init success!");
-//    bmp.setSampling(Adafruit_BMP280::MODE_NORMAL,     /* Operating Mode. */
-//                    Adafruit_BMP280::SAMPLING_X2,     /* Temp. oversampling */
-//                    Adafruit_BMP280::SAMPLING_X16,    /* Pressure oversampling */
-//                    Adafruit_BMP280::FILTER_X16,      /* Filtering. */
-//                    Adafruit_BMP280::STANDBY_MS_500); /* Standby time. */
-//  }
+  Serial.println("2. Initialising BMP280..");
+  int bmp_lib = bmp.begin();
+  if(!bmp_lib){
+    Serial.println("\t BMP init failed!");
+    while(1);
+  }
+  else {
+    Serial.println("\t BMP init success!");
+    bmp.setSampling(Adafruit_BMP280::MODE_NORMAL,     /* Operating Mode. */
+                    Adafruit_BMP280::SAMPLING_X2,     /* Temp. oversampling */
+                    Adafruit_BMP280::SAMPLING_X16,    /* Pressure oversampling */
+                    Adafruit_BMP280::FILTER_X16,      /* Filtering. */
+                    Adafruit_BMP280::STANDBY_MS_500); /* Standby time. */
+  }
+
+  // Initialise RTC module
+  Serial.println("3. Initialising RTC..");
+  if (! rtc.begin()) {
+    Serial.println("Couldn't find RTC");
+    Serial.flush();
+    abort();
+  }
 
   // Initialise rain sensor
-  Serial.println("3. Initialising rain sensor");
+  Serial.println("4. Initialising rain sensor");
   pinMode(INPUT, RAINSENSORPIN);
   
-  Serial.println("4. Initialising rain guage");
+  Serial.println("5. Initialising rain guage");
   pinMode(INPUT, RAINGUAGEPIN);
   
   Serial.println("initialization complete.");
@@ -94,14 +106,26 @@ void loop() {
   Serial.print("\t ii. Altitude: "); Serial.println(bmp_altitude);
   Serial.print("\t iii. Temperature: "); Serial.println(bmp_temperature);
 
+  // Read data from RTC module
+  Serial.println("3. RTC module data:-");
+  DateTime time = rtc.now();
+//Full Timestamp
+ Serial.println(String("DateTime::TIMESTAMP_FULL:\t")+time.timestamp(DateTime::TIMESTAMP_FULL));
+
+ //Date Only
+ Serial.println(String("DateTime::TIMESTAMP_DATE:\t")+time.timestamp(DateTime::TIMESTAMP_DATE));
+
+ //Full Timestamp
+ Serial.println(String("DateTime::TIMESTAMP_TIME:\t")+time.timestamp(DateTime::TIMESTAMP_TIME));
+
   // Read data from Rain Sensor
   int rain_sensor_data = analogRead(RAINSENSORPIN);
-  Serial.println("3. Rain Sensor Data:-");
+  Serial.println("4. Rain Sensor Data:-");
   Serial.print("\t i. Value: ");Serial.println(rain_sensor_data);
 
   // Read data from Rain Guage
   int rain_guage_data = digitalRead(RAINGUAGEPIN);
-  Serial.println("4. Rain Guage Data:-");
+  Serial.println("5. Rain Guage Data:-");
   Serial.print("\t i. Value: ");Serial.println(rain_guage_data);
   
   Serial.println("---------------------------\n\n");
