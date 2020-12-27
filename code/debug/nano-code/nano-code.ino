@@ -2,7 +2,7 @@
  * Project Name: Home Weather Station Mini
  * Program Name: Arduino Nano debug code
  * Created on: 13/12/2020 08:04:00 PM
- * Last Modified: 13/12/2020 09:53:00 PM
+ * Last Modified: 27/12/2020 07:04:00 PM
  * Created by: Sashwat K
  */
 
@@ -53,7 +53,6 @@ void setup() {
     while(1);
   }
   else {
-    Serial.println("\t BMP init success!");
     bmp.setSampling(Adafruit_BMP280::MODE_NORMAL,     /* Operating Mode. */
                     Adafruit_BMP280::SAMPLING_X2,     /* Temp. oversampling */
                     Adafruit_BMP280::SAMPLING_X16,    /* Pressure oversampling */
@@ -64,9 +63,13 @@ void setup() {
   // Initialise RTC module
   Serial.println("3. Initialising RTC..");
   if (! rtc.begin()) {
-    Serial.println("Couldn't find RTC");
+    Serial.println("\t RTC module not found.");
     Serial.flush();
     abort();
+  }
+  if (! rtc.isrunning()) {
+    Serial.println("\t RTC time error... Resetting date and time...");
+    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   }
 
   // Initialise rain sensor
@@ -109,14 +112,12 @@ void loop() {
   // Read data from RTC module
   Serial.println("3. RTC module data:-");
   DateTime time = rtc.now();
-//Full Timestamp
- Serial.println(String("DateTime::TIMESTAMP_FULL:\t")+time.timestamp(DateTime::TIMESTAMP_FULL));
-
- //Date Only
- Serial.println(String("DateTime::TIMESTAMP_DATE:\t")+time.timestamp(DateTime::TIMESTAMP_DATE));
-
- //Full Timestamp
- Serial.println(String("DateTime::TIMESTAMP_TIME:\t")+time.timestamp(DateTime::TIMESTAMP_TIME));
+  //Full Timestamp
+  Serial.print("Date & Time (TIMESTAMP): "); Serial.println(time.timestamp(DateTime::TIMESTAMP_FULL));
+  //Date Only
+  Serial.print("Date & Time (DATE): "); Serial.println(time.timestamp(DateTime::TIMESTAMP_DATE));
+  //Full Timestamp
+  Serial.print("Date & Time (TIME): "); Serial.println(time.timestamp(DateTime::TIMESTAMP_TIME));
 
   // Read data from Rain Sensor
   int rain_sensor_data = analogRead(RAINSENSORPIN);
