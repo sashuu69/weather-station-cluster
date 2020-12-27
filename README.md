@@ -7,23 +7,20 @@ The Home Weather Station Mini is a DIY weather station that collects the followi
 1. Temperature
 2. Humidity
 3. Altitude
-4. Rain (in cm)
-5. Rain duration and strength
+4. Pressure
+5. Rain (in cm)
+6. Rain duration and strength
 
 ## Features
 
-1. Collects data and stores the data in database.
-2. A web application to show current weather data.
+1. Collects the above mentuioned parameters and stores the data to database.
 
 ## Folder Structure
 
-1. cad-files/main-board: CAD files for control box.
-2. cad-files/rain-guage: CAD files for rain guage.
-3. code/debug-code: Contains code to debug sensors.
-4. code/nodemcu-code: Contains nodemcu code for collecting weather data.
-5. docs: PCB images (Top, Bottom and Drill).
-6. eagle-design: Eagle design of PCB.
-7. libraries: Contains the libraries to be added to Arduino IDE.
+1. code/debug-code: Contains code to debug sensors.
+2. code/nodemcu-code: Contains nodemcu code for collecting weather data.
+3. docs: PCB images (Top, Bottom and Drill).
+4. eagle-design: Eagle design of PCB.
 
 ## Components Used
 
