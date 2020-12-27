@@ -2,18 +2,20 @@
 
 ## Introduction
 
-The Home Weather Station Mini is a DIY weather station that collects the following data and uploads the data to database:-
+The project is still under progress.
 
-1. Temperature
-2. Humidity
-3. Altitude
-4. Pressure
-5. Rain (in cm)
-6. Rain duration and strength
+The Home Weather Station Mini is weather station system for ethusiasts that want to measure data for education research purposes.
 
 ## Features
 
-1. Collects the above mentuioned parameters and stores the data to database.
+1. The device collects the following data:-
+    1. Temperature
+    2. Humidity
+    3. Altitude
+    4. Pressure
+    5. Rain (in cm)
+    6. Rain duration and strength
+2. Collects the above mentuioned parameters and stores the data to database.
 
 ## Folder Structure
 
@@ -21,6 +23,17 @@ The Home Weather Station Mini is a DIY weather station that collects the followi
 2. code/nodemcu-code: Contains nodemcu code for collecting weather data.
 3. docs: PCB images (Top, Bottom and Drill).
 4. eagle-design: Eagle design of PCB.
+
+## Library used
+
+1. DHT22 Library - [GitHub](https://github.com/adafruit/DHT-sensor-library)
+2. BMP280 Library - [GitHub](https://github.com/adafruit/DHT-sensor-library)
+3. RTC Library - [GitHub](https://github.com/adafruit/RTClib)
+
+## CAD Files
+
+1. Rain Guage - [Thingiverse](https://www.thingiverse.com/thing:4434857)
+2. Rain sensor support - [Thingiverse](https://www.thingiverse.com/thing:4107951)
 
 ## Components Used
 
