@@ -2,7 +2,7 @@
  * Project Name: Home Weather Station Mini
  * Program Name: Arduino Nano debug code
  * Created on: 13/12/2020 08:04:00 PM
- * Last Modified: 27/12/2020 07:04:00 PM
+ * Last Modified: 28/12/2020 08:40:00 AM
  * Created by: Sashwat K
  */
 
@@ -49,7 +49,7 @@ void setup() {
   Serial.println("2. Initialising BMP280..");
   int bmp_lib = bmp.begin();
   if(!bmp_lib){
-    Serial.println("\t BMP init failed!");
+    Serial.println("\t BMP init failed!!");
     while(1);
   }
   else {
@@ -63,7 +63,7 @@ void setup() {
   // Initialise RTC module
   Serial.println("3. Initialising RTC..");
   if (! rtc.begin()) {
-    Serial.println("\t RTC module not found.");
+    Serial.println("\t RTC module not found..");
     Serial.flush();
     abort();
   }
@@ -73,13 +73,13 @@ void setup() {
   }
 
   // Initialise rain sensor
-  Serial.println("4. Initialising rain sensor");
+  Serial.println("4. Initialising rain sensor..");
   pinMode(INPUT, RAINSENSORPIN);
   
-  Serial.println("5. Initialising rain guage");
+  Serial.println("5. Initialising rain guage..");
   pinMode(INPUT, RAINGUAGEPIN);
   
-  Serial.println("initialization complete.");
+  Serial.println("Initialization complete.");
   Serial.println("*************************");
   Serial.println("*************************\n\n\n");
 }
@@ -101,8 +101,11 @@ void loop() {
   // Read data from BMP280
   double bmp_temperature, bmp_pressure, bmp_altitude;
   bmp_temperature = bmp.readTemperature();
-  bmp_pressure = bmp.readPressure();
-  bmp_altitude = bmp.readAltitude(1013.25);
+  /* bmp_pressure = pressure_value / 100 + const
+   * const = 1018.33 - (get pressure value of your location from https://en.allmetsat.com/metar-taf/)
+   */
+  bmp_pressure = bmp.readPressure() / 100.00 + 5.33;
+  bmp_altitude = bmp.readAltitude(bmp_pressure);
   
   Serial.println("2. BMP280 Data:-");
   Serial.print("\t i. Pressure: "); Serial.println(bmp_pressure);
@@ -111,13 +114,13 @@ void loop() {
 
   // Read data from RTC module
   Serial.println("3. RTC module data:-");
-  DateTime time = rtc.now();
+  DateTime now = rtc.now();
   //Full Timestamp
-  Serial.print("Date & Time (TIMESTAMP): "); Serial.println(time.timestamp(DateTime::TIMESTAMP_FULL));
+  Serial.print("\t i. Date & Time (TIMESTAMP): "); Serial.println(now.timestamp(DateTime::TIMESTAMP_FULL));
   //Date Only
-  Serial.print("Date & Time (DATE): "); Serial.println(time.timestamp(DateTime::TIMESTAMP_DATE));
+  Serial.print("\t ii. Date & Time (DATE): "); Serial.println(now.toString("DD-MM-YYYY"));
   //Full Timestamp
-  Serial.print("Date & Time (TIME): "); Serial.println(time.timestamp(DateTime::TIMESTAMP_TIME));
+  Serial.print("\t iii. Date & Time (TIME): "); Serial.println(now.toString("hh:mm:ss"));
 
   // Read data from Rain Sensor
   int rain_sensor_data = analogRead(RAINSENSORPIN);
