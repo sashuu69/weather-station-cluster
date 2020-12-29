@@ -28,15 +28,23 @@ Adafruit_BMP280 bmp;
 #include <RTClib.h>
 RTC_DS1307 rtc;
 
+// Micro SD card Module
+#include <SPI.h>
+#include <SD.h>
+File sd_card;
+
 // Rain Sensor
 #define RAINSENSORPIN A0
 
 // Rain Guage
 #define RAINGUAGEPIN 4
 
+// Global counter
+int counter = 0;
+
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.println("Initialising sensors...");
   
   // Initialise DHT22
@@ -68,6 +76,12 @@ void setup() {
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   }
 
+  if (!SD.begin(4)) {
+    Serial.println("initialization failed!");
+    while (1);
+  }
+  sd_card = SD.open("sensor_data.txt", FILE_WRITE);
+
   // Initialise rain sensor
   pinMode(INPUT, RAINSENSORPIN);
   
@@ -89,13 +103,12 @@ void loop() {
   float dht_heat_index = dht.computeHeatIndex(dht_temperature, dht_humidity, false);
 
   // Read data from BMP280
-  double bmp_temperature, bmp_pressure, bmp_altitude;
-  bmp_temperature = bmp.readTemperature();
+  double bmp_temperature = bmp.readTemperature();
   /* bmp_pressure = pressure_value / 100 + const
    * const = 1018.33 - (get pressure value of your location from https://en.allmetsat.com/metar-taf/)
    */
-  bmp_pressure = bmp.readPressure() / 100.00 + 5.33;
-  bmp_altitude = bmp.readAltitude(bmp_pressure);
+  double bmp_pressure = bmp.readPressure() / 100.00 + 5.33;
+  double bmp_altitude = bmp.readAltitude(bmp_pressure);
 
   // Read data from RTC module
   DateTime now = rtc.now();
@@ -109,7 +122,7 @@ void loop() {
   int rain_guage_data = digitalRead(RAINGUAGEPIN);
 
   // Create JSON data
-  StaticJsonDocument<100> doc;
+  DynamicJsonDocument doc(512);
   doc["rtc_date"] = rtc_date;
   doc["rtc_time"] = rtc_time;
   doc["dht_humidity"] = dht_humidity;
@@ -120,10 +133,19 @@ void loop() {
   doc["bmp_altitude"] = bmp_altitude;
   doc["rain_sensor_data"] = rain_sensor_data;
   doc["rain_guage_data"] = rain_guage_data;
-
+  
   // Send JSON via Serial
   serializeJson(doc, s_serial_to_esp);
-  Serial.println("Loop complete..");
+  doc.clear();
 
+  if (counter % 30 == 0) {
+    counter = 0;
+    String final_string = rtc_date + "," + rtc_time + "," + dht_humidity + "," + dht_temperature + "," + dht_heat_index + "," + bmp_temperature + "," + bmp_pressure + "," + bmp_altitude + "," + rain_sensor_data + "," + rain_guage_data;
+    sd_card.println(final_string);
+  }
+  else {
+    counter ++;
+  }
+  Serial.println("Loop complete..");
   delay(1000);
 }

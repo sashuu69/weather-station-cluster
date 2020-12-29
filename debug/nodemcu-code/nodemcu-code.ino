@@ -6,18 +6,28 @@
  * Created by: Sashwat K
  */
 
- 
-#include <SPI.h>
-#include <SD.h>
-
-File root;
+#include <ArduinoJson.h> // Library for JSON
+#include <SoftwareSerial.h> // Library for Software Serial
+SoftwareSerial s_serial_to_nano(D4, D3); // Software Serial with Nano (RX,TX)
 
 // LED Pins
 #define LED1 D0
 
+String rtc_date;
+String rtc_time;
+float dht_humidity;
+float dht_temperature;
+float dht_heat_index;
+double bmp_temperature;
+double bmp_pressure;
+double bmp_altitude;
+int rain_sensor_data;
+int rain_guage_data;
+
+
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.println("\n=========================");
   Serial.println("Home Weather Station Mini");
   Serial.println("-------- NodeMCU --------");
@@ -27,12 +37,8 @@ void setup() {
   Serial.println("*************************");
   Serial.println("Initialising sensors...");
 
-  // Initialise Micro SD Card
-  Serial.println("1. Initialising SD card...");
-  if (!SD.begin(4)) {
-    Serial.println("\t Initialisation failed!!!");
-    while (1);
-  }
+  Serial.println("1. Initialising software serial...");
+  s_serial_to_nano.begin(4800);
   
   Serial.println("2. Initialising LED 1...");
   pinMode(LED1, OUTPUT);
@@ -43,44 +49,35 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  Serial.println("---------------------------\n");
+  if (s_serial_to_nano.available()) {
+    Serial.println("---------------------------\n");
+    digitalWrite(LED1, HIGH);
+    
+    DynamicJsonDocument doc(512);
+    deserializeJson(doc, s_serial_to_nano);
+    rtc_date = doc["rtc_date"].as<String>();
+    rtc_time = doc["rtc_time"].as<String>();
+    dht_humidity = doc["dht_humidity"].as<float>();
+    dht_temperature = doc["dht_temperature"].as<float>();
+    dht_heat_index = doc["dht_heat_index"].as<float>();
+    bmp_temperature = doc["bmp_temperature"].as<double>();
+    bmp_pressure = doc["bmp_pressure"].as<double>();
+    bmp_altitude = doc["bmp_altitude"].as<double>();
+    rain_sensor_data = doc["rain_sensor_data"].as<int>();
+    rain_guage_data = doc["rain_guage_data"].as<int>();
 
-  // Read data from Micro SD Card Module
-  Serial.println("1. Testing Micro SD Card Module..");
-  root = SD.open("/");
-  printDirectory(root, 0);
+    Serial.println("1. Values from Arduino Nano (Software Serial):-");
+    Serial.print("\t RTC Date: "); Serial.println(rtc_date);
+    Serial.print("\t RTC Time: "); Serial.println(rtc_time);
+    Serial.print("\t DHT22 Humidity: "); Serial.println(dht_humidity);
+    Serial.print("\t DHT22 Temperature: "); Serial.println(dht_temperature);
+    Serial.print("\t DHT22 Heat Index: "); Serial.println(dht_heat_index);
+    Serial.print("\t BMP280 Temperature: "); Serial.println(bmp_temperature);
+    Serial.print("\t BMP280 Pressure: "); Serial.println(bmp_pressure);
+    Serial.print("\t BMP280 Altitude: "); Serial.println(bmp_altitude);
+    Serial.print("\t Rain Sensor: "); Serial.println(rain_sensor_data);
+    Serial.print("\t Rain Guage: "); Serial.println(rain_guage_data);
 
-  // Testing LED2
-  Serial.println("2. Testing LED1..");
-  digitalWrite(LED1, HIGH);
-  delay(1000);
-  digitalWrite(LED1, LOW);
-  delay(1000);
-  
-  delay(2000);
-  Serial.println("---------------------------\n\n");
-}
-
-void printDirectory(File dir, int numTabs) {
-  while (true) {
-
-    File entry =  dir.openNextFile();
-    if (! entry) {
-      // no more files
-      break;
-    }
-    for (uint8_t i = 0; i < numTabs; i++) {
-      Serial.print('\t');
-    }
-    Serial.print(entry.name());
-    if (entry.isDirectory()) {
-      Serial.println("/");
-      printDirectory(entry, numTabs + 1);
-    } else {
-      // files have sizes, directories do not
-      Serial.print("\t\t");
-      Serial.println(entry.size(), DEC);
-    }
-    entry.close();
+    Serial.println("---------------------------\n");
   }
 }
