@@ -10,6 +10,7 @@
 // JSON connection
 #include "ArduinoJson.h"
 
+// Software Serial
 #include <SoftwareSerial.h> // Library for Software Serial
 SoftwareSerial s_serial_to_esp(11, 12); //RX, TX
 
@@ -40,6 +41,9 @@ int sdcard_chip_select = 53;
 
 // Rain Guage
 #define RAINGUAGEPIN 7
+int rain_guage_counter = 0;
+int rain_guage_flag = 0;
+int rain_guage_data = 0;
 
 // Global counter
 int counter = 0;
@@ -65,11 +69,6 @@ void setup() {
     abort();
   }
   else {
-    bmp.setSampling(Adafruit_BMP280::MODE_NORMAL,     /* Operating Mode. */
-                    Adafruit_BMP280::SAMPLING_X2,     /* Temp. oversampling */
-                    Adafruit_BMP280::SAMPLING_X16,    /* Pressure oversampling */
-                    Adafruit_BMP280::FILTER_X16,      /* Filtering. */
-                    Adafruit_BMP280::STANDBY_MS_500); /* Standby time. */
     Serial.println("\t Success");
   }
 
@@ -82,10 +81,6 @@ void setup() {
   }
   else {
     Serial.println("\t Success");
-  }
-  if (! rtc.isrunning()) {
-    Serial.println("\t RTC is NOT running, let's set the time!");
-    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   }
 
   Serial.print("4. Initialising Micro SD card module");
@@ -113,8 +108,44 @@ void setup() {
   s_serial_to_esp.begin(4800);
   Serial.println("\t Success");
   
-  Serial.println("\ninitialization complete");
+  Serial.println("\ninitialiaation complete");
   Serial.println("-------------------------\n");
+
+  Serial.println("Post Initialisation steps");
+  Serial.println("-------------------------\n");
+
+  // BMP post initialisation
+  bmp.setSampling(Adafruit_BMP280::MODE_NORMAL,     /* Operating Mode. */
+                    Adafruit_BMP280::SAMPLING_X2,     /* Temp. oversampling */
+                    Adafruit_BMP280::SAMPLING_X16,    /* Pressure oversampling */
+                    Adafruit_BMP280::FILTER_X16,      /* Filtering. */
+                    Adafruit_BMP280::STANDBY_MS_500); /* Standby time. */
+
+  // RTC module
+  if (! rtc.isrunning()) {
+    Serial.println("RTC is NOT running, let's set the time!");
+    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+  }
+
+  // For rain guage
+  if (SD.exists("rain-guage-status.txt")) {
+    Serial.println("rain-guage-status.txt file exists");
+  }
+  else {
+    Serial.println("Creating rain-guage-status.txt");
+    sd_card = SD.open("rain-guage-status.txt", FILE_WRITE);
+    sd_card.println(0);
+    sd_card.close();
+  }
+  if (SD.exists("rain-guage-flag.txt")) {
+    Serial.println("rain-guage-flag.txt file exists");
+  }
+  else {
+    Serial.println("Creating rain-guage-flag.txt");
+    sd_card = SD.open("rain-guage-flag.txt", FILE_WRITE);
+    sd_card.println(0);
+    sd_card.close();
+  }
 }
 
 void loop() {
@@ -142,7 +173,38 @@ void loop() {
   int rain_sensor_data = analogRead(RAINSENSORPIN);
 
   // Read data from Rain Guage
-  int rain_guage_data = digitalRead(RAINGUAGEPIN);
+  sd_card = SD.open("rain-guage-status.txt", FILE_READ); // To secure from reset or shutdown
+  rain_guage_data = sd_card.read();
+  sd_card.close();
+  
+  sd_card = SD.open("rain-guage-flag.txt", FILE_READ); // To secure from reset or shutdown
+  rain_guage_flag = sd_card.read();
+  sd_card.close();
+  
+  int rain_guage_output = digitalRead(RAINGUAGEPIN);
+  if(rain_guage_flag != rain_guage_output) {
+    rain_guage_data ++;
+    rain_guage_flag = rain_guage_output;
+  }
+
+  // Update rain guage flag to file
+  // To secure from reset or shutdown
+  SD.remove("rain-guage-flag.txt");
+  sd_card = SD.open("rain-guage-flag.txt", FILE_WRITE);
+  sd_card.println(rain_guage_flag);
+  sd_card.close();
+  
+  // Update rain guage count to file
+  // To secure from reset or shutdown
+  SD.remove("rain-guage-status.txt");
+  sd_card = SD.open("rain-guage-status.txt", FILE_WRITE);
+  sd_card.println(rain_guage_data);
+  sd_card.close();
+
+  // Reset rain guage every midnight
+  if (now.hour() == 0 && now.minute() == 00 && rain_guage_data != 0) {
+    rain_guage_data = 0;
+  }  
 
   // Create JSON data
   DynamicJsonDocument doc(512);
