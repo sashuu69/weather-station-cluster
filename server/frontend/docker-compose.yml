@@ -5,8 +5,8 @@ services:
   device_api_handler:
     build:
       context: ./bin/device-api-handler
-    image: sashuu6/home_weather_station_mini_frontend:device_api
-    container_name: "device_api-home_weather_station_mini_frontend-sashuu6"
+    image: sashuu6/weather_station_cluster_frontend:device_api
+    container_name: "device_api-weather_station_cluster_frontend-sashuu6"
     restart: "always"
     ports:
       - "${API_DEVICE_PORT}:5000"
@@ -17,8 +17,8 @@ services:
   public_api_handler:
     build:
       context: ./bin/public-api-handler
-    image: sashuu6/home_weather_station_mini_frontend:public_api
-    container_name: "public_api-home_weather_station_mini_frontend-sashuu6"
+    image: sashuu6/weather_station_cluster_frontend:public_api
+    container_name: "public_api-weather_station_cluster_frontend-sashuu6"
     restart: "always"
     ports:
       - "${PUBLIC_DEVICE_PORT}:5000"
