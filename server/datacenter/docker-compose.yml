@@ -5,8 +5,8 @@ services:
   controller:
     build:
       context: ./bin/controller
-    image: sashuu6/home_weather_station_mini_datacenter:controller
-    container_name: "controller-home_weather_station_mini_datacenter-sashuu6"
+    image: sashuu6/weather_station_cluster_datacenter:controller
+    container_name: "controller-weather_station_cluster_datacenter-sashuu6"
     restart: "always"
     ports:
       - "${CONTROLLER_PORT}:5000"
@@ -17,8 +17,8 @@ services:
   postgres:
     build:
       context: ./bin/postgres
-    image: sashuu6/home_weather_station_mini_datacenter:postgres
-    container_name: "postgres-home_weather_station_mini_datacenter-sashuu6"
+    image: sashuu6/weather_station_cluster_datacenter:postgres
+    container_name: "postgres-weather_station_cluster_datacenter-sashuu6"
     restart: "always"
     ports:
       - "${HOST_MACHINE_POSTGRES_PORT}:5432"
@@ -34,8 +34,8 @@ services:
   pgadmin:
     build:
       context: ./bin/pgadmin
-    image: techwithus/gisaplha:pgadmin
-    container_name: "pgadmin-gisalpha-techwithus"
+    image: sashuu6/weather_station_cluster_datacenter:pgadmin
+    container_name: "pgadmin-weather_station_cluster_datacenter-sashuu6"
     restart: "always"
     links:
       - postgres

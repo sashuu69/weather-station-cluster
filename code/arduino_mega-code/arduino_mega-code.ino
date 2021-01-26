@@ -1,5 +1,5 @@
 /*
- * Project Name: Home Weather Station Mini
+ * Project Name: Weather Station Cluster
  * Program Name: Arduino Mega code
  * Board Name : Arduino Mega
  * Created on: 13/12/2020 08:04:00 PM

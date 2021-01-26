@@ -1,10 +1,10 @@
-# Home Weather Station Mini
+# Weather Station Cluster
 
 ## The project is still under progress
 
 ## Introduction
 
-The Home Weather Station Mini is weather station system for ethusiasts that want to measure data for education and research purposes.
+The Weather Station Cluster is weather station system for ethusiasts that want to measure data for education and research purposes.
 
 ## Features
 

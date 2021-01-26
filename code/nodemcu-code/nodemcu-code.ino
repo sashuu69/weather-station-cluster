@@ -1,5 +1,5 @@
 /*
- * Project Name: Home Weather Station Mini
+ * Project Name: Weather Station Cluster
  * Program Name: NodeMCU code
  * Created on: 20/11/2020 02:11:00 AM
  * Last Modified: 28/12/2020 09:27:00 AM
