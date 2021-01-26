@@ -1,45 +1,50 @@
 # Home Weather Station Mini
 
+## The project is still under progress
+
 ## Introduction
 
-The project is still under progress.
-
-The Home Weather Station Mini is weather station system for ethusiasts that want to measure data for education research purposes.
+The Home Weather Station Mini is weather station system for ethusiasts that want to measure data for education and research purposes.
 
 ## Features
 
 1. The device collects the following data:-
     1. Temperature
     2. Humidity
-    3. Altitude
-    4. Pressure
-    5. Rain (in cm)
-    6. Rain duration and strength
-2. Collects the above mentuioned parameters and stores the data to database.
+    3. Heat index
+    4. Altitude
+    5. Pressure
+    6. Rain (in cm)
+    7. Rain duration and strength
+    8. Wind speed
+    9. Wind direction
+2. Collects the above mentioned parameters and stores the data to database.
 
 ## Folder Structure
 
-1. code/debug-code: Contains code to debug sensors.
-2. code/nodemcu-code: Contains nodemcu code for collecting weather data.
+1. code/arduino_mega-code: Contains code for Arduino Mega.
+2. code/nodemcu-code: Contains code NodeMCU.
 3. docs: PCB images (Top, Bottom and Drill).
 4. eagle-design: Eagle design of PCB.
 
 ## Library used
 
 1. DHT22 Library - [GitHub](https://github.com/adafruit/DHT-sensor-library)
-2. BMP280 Library - [GitHub](https://github.com/adafruit/DHT-sensor-library)
+2. BMP280 Library - [GitHub](https://github.com/mahfuz195/BMP280-arduino-library)
 3. RTC Library - [GitHub](https://github.com/adafruit/RTClib)
 
 ## CAD Files
 
 1. Rain Guage - [Thingiverse](https://www.thingiverse.com/thing:4434857)
 2. Rain sensor support - [Thingiverse](https://www.thingiverse.com/thing:4107951)
+3. Wind direction - [Thingiverse](https://www.thingiverse.com/thing:2348449)
+4. Wind speed - [Thingiverse](https://www.thingiverse.com/thing:2523343)
 
 ## Components Used
 
-1. NodeMCU (x1) - [Tomson Electronics](https://www.tomsonelectronics.com/products/buy-nodemcu-esp8266-esp-12e-with-ch340-online?_pos=4&_sid=e5db98597&_ss=r)
+1. NodeMCU (x1) - [Tomson Electronics](https://www.tomsonelectronics.com/products/buy-node-mcu-esp-8266-with-cp-2102-online)
 2. Micro SD card module (x1) - [Tomson Electronics](https://www.tomsonelectronics.com/products/micro-sd-card-module)
-3. Arduino Nano (x1) - [Tomson Electronics](https://www.tomsonelectronics.com/products/buy-arduino-nano-v3-0-online-india)
+3. Arduino Mega (x1) - [Tomson Electronics](https://www.tomsonelectronics.com/products/buy-arduino-mega-2560-online-india)
 4. DHT22 (x1) - [Tomson Electronics](https://www.tomsonelectronics.com/products/dht22-digital-temperature-and-humidity-sensor-module-am2302)
 5. BMP 280 (x1) - [Tomson Electronics](https://www.tomsonelectronics.com/products/bmp-280-barometer-precision-atmospheric-pressure-sensor-module)
 6. Rain sensor (x1) - [Tomson Electronics](https://www.tomsonelectronics.com/products/rain-drop-detection-sensor-rain-detector-weather-module)
@@ -49,15 +54,15 @@ The Home Weather Station Mini is weather station system for ethusiasts that want
 10. Female headers - [Robu (India)](https://robu.in/product/2mm-pitch-female-berg-strip-40x1-2pcs/)
 11. Male header pins - [Robu (India)](https://robu.in/product/1x40-berg-strip-male-connector/)
 12. DC Barrel Power Jack (x1) - [Tomson Electronics](https://www.tomsonelectronics.com/products/dc-barrel-power-jack)
-13. DSN-VC288 Volt/AMp Meter (x1) - [Tomson Electronics](https://www.sunrom.com/p/voltamp-meter-dsn-vc288)
+13. LED (Red) (x4) - [Tomson Electronics](https://www.tomsonelectronics.com/products/led-basic-red-5mm-pack-of-10)
 14. Diode IN 4007 (x1) - [Tomson Electronics](https://www.tomsonelectronics.com/products/diode-1n-4007)
 15. Capacitor (1uF 63V) (x2) - [Tomson Electronics](https://www.tomsonelectronics.com/products/100uf-16v-radial-electrolytic-capacitor)
 16. 7805 5V regulator (x1) - [Amazon (India)](https://www.amazon.in/5-piece-voltage-regulator-7805/dp/0070530572)
-17. LED (x3) - [Tomson Electronics](https://www.tomsonelectronics.com/products/led-basic-green-5-mm)
+17. LED (Green) (x3) - [Tomson Electronics](https://www.tomsonelectronics.com/products/led-basic-green-5-mm)
 18. Micro SD Card Module (x1) - [Tomson Electronics](https://www.tomsonelectronics.com/products/micro-sd-card-module)
 19. Rain drop detection sensor Module (x1) - [Tomson Electronics](https://www.tomsonelectronics.com/products/rain-drop-detection-sensor-rain-detector-weather-module)
 20. Resistor (10K Ohms) (x2) - [Tomson Electronics](https://www.tomsonelectronics.com/products/1ko-12ko-carbon-film-resistor)
-21. Resistor (220 Ohms) (x3) - [Tomson Electronics](https://www.tomsonelectronics.com/products/100k-ohm-metal-film-resistor?variant=8737726038107)
+21. Resistor (220 Ohms) (x7) - [Tomson Electronics](https://www.tomsonelectronics.com/products/100k-ohm-metal-film-resistor?variant=8737726038107)
 22. Pole, Wires, tapes and zip ties
 
 Discount code for Tomson Electronics : ZENOOFF2020
@@ -95,8 +100,10 @@ Discount code for Tomson Electronics : ZENOOFF2020
 | BMP280 | Temperature, atmospheric pressure and altitude |
 | Rain Guage | Rain in CM |
 | Rain drop sensor | Rain Duration and Strength |
+| Annemometer | Wind speed and wind direction |
 
 ## Contributions
 
 1. Sashwat K (@sashuu6) <hi@sashwat.in>
 2. Tharun P Karun (@tharunpkarun) <tpk@tharun.me>
+3. Sreeram [YouTube](https://www.youtube.com/channel/UC3x_svxO5Dxl0VesjEMpuGg)
