@@ -3,7 +3,7 @@
  * Program Name: Arduino Mega code
  * Board Name : Arduino Mega
  * Created on: 13/12/2020 08:04:00 PM
- * Last Modified: 26/01/2021 09:03:00 PM
+ * Last Modified: 29/01/2021 11:39:00 PM
  * Created by: Sashwat K
  */
 
@@ -12,7 +12,7 @@
 
 // Software Serial
 #include <SoftwareSerial.h> // Library for Software Serial
-SoftwareSerial s_serial_to_esp(11, 12); //RX, TX
+SoftwareSerial s_serial_to_esp(2, 3); //RX, TX
 
 // DHT22
 #include "DHT.h"
@@ -45,15 +45,35 @@ int rain_guage_counter = 0;
 int rain_guage_flag = 0;
 int rain_guage_data = 0;
 
+// LEDs
+#define SDREADLEDPIN 29 
+#define BMPERRLEDPIN 33
+#define RTCERRLEDPIN 35
+#define SDCRDERRLEDPIN 31
+
 // Global counter
 int counter = 0;
+bool sdcard_flag = false;
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
+  Serial.println("-------------------------");
   Serial.println("Home Weather Station Mini");
   Serial.println("-------------------------");
   Serial.println("Sensor Initialisation \n");
+
+  // Initialise LEDs
+  pinMode(SDREADLEDPIN, OUTPUT);
+  pinMode(BMPERRLEDPIN, OUTPUT);
+  pinMode(RTCERRLEDPIN, OUTPUT);
+  pinMode(SDCRDERRLEDPIN, OUTPUT);
+
+  // Initialise LED to off
+  digitalWrite(SDREADLEDPIN, LOW);
+  digitalWrite(BMPERRLEDPIN, LOW);
+  digitalWrite(RTCERRLEDPIN, LOW);
+  digitalWrite(SDCRDERRLEDPIN, LOW);
   
   // Initialise DHT22
   Serial.print("1. Initialising DHT22");
@@ -64,6 +84,7 @@ void setup() {
   Serial.print("2. Initialising BMP280");
   int bmp_lib = bmp.begin();
   if(!bmp_lib){
+    digitalWrite(BMPERRLEDPIN, HIGH);
     Serial.println("\t Failed");
     Serial.flush();
     abort();
@@ -75,6 +96,7 @@ void setup() {
   // Initialise RTC module
   Serial.print("3. Initialising RTC module");
   if (! rtc.begin()) {
+    digitalWrite(RTCERRLEDPIN, HIGH);
     Serial.println("\t Failed");
     Serial.flush();
     abort();
@@ -86,6 +108,7 @@ void setup() {
   Serial.print("4. Initialising Micro SD card module");
   pinMode(sdcard_chip_select, OUTPUT);
   if (!SD.begin()) {
+    digitalWrite(SDCRDERRLEDPIN, HIGH);
     Serial.println("\t Failed");
     while (1);
   }
@@ -115,6 +138,7 @@ void setup() {
   Serial.println("-------------------------\n");
 
   // BMP post initialisation
+  Serial.println("Setting BMP settings");
   bmp.setSampling(Adafruit_BMP280::MODE_NORMAL,     /* Operating Mode. */
                     Adafruit_BMP280::SAMPLING_X2,     /* Temp. oversampling */
                     Adafruit_BMP280::SAMPLING_X16,    /* Pressure oversampling */
@@ -128,21 +152,22 @@ void setup() {
   }
 
   // For rain guage
-  if (SD.exists("rain-guage-status.txt")) {
-    Serial.println("rain-guage-status.txt file exists");
+  if (SD.exists("rgs.txt")) {
+    Serial.println("rain guage status (rgs.txt) file exists");
   }
   else {
-    Serial.println("Creating rain-guage-status.txt");
-    sd_card = SD.open("rain-guage-status.txt", FILE_WRITE);
+    Serial.println("Creating rain guage status (rgs.txt)");
+    sd_card = SD.open("rgs.txt", FILE_WRITE);
     sd_card.println(0);
     sd_card.close();
   }
-  if (SD.exists("rain-guage-flag.txt")) {
+  
+  if (SD.exists("rgf.txt")) {
     Serial.println("rain-guage-flag.txt file exists");
   }
   else {
-    Serial.println("Creating rain-guage-flag.txt");
-    sd_card = SD.open("rain-guage-flag.txt", FILE_WRITE);
+    Serial.println("Creating rain guage flag (rgf.txt");
+    sd_card = SD.open("rgf.txt", FILE_WRITE);
     sd_card.println(0);
     sd_card.close();
   }
@@ -173,11 +198,11 @@ void loop() {
   int rain_sensor_data = analogRead(RAINSENSORPIN);
 
   // Read data from Rain Guage
-  sd_card = SD.open("rain-guage-status.txt", FILE_READ); // To secure from reset or shutdown
+  sd_card = SD.open("rgs.txt", FILE_READ); // To secure from reset or shutdown
   rain_guage_data = sd_card.read();
   sd_card.close();
   
-  sd_card = SD.open("rain-guage-flag.txt", FILE_READ); // To secure from reset or shutdown
+  sd_card = SD.open("rgf.txt", FILE_READ); // To secure from reset or shutdown
   rain_guage_flag = sd_card.read();
   sd_card.close();
   
@@ -189,15 +214,15 @@ void loop() {
 
   // Update rain guage flag to file
   // To secure from reset or shutdown
-  SD.remove("rain-guage-flag.txt");
-  sd_card = SD.open("rain-guage-flag.txt", FILE_WRITE);
+  SD.remove("rgf.txt");
+  sd_card = SD.open("rgf.txt", FILE_WRITE);
   sd_card.println(rain_guage_flag);
   sd_card.close();
   
   // Update rain guage count to file
   // To secure from reset or shutdown
-  SD.remove("rain-guage-status.txt");
-  sd_card = SD.open("rain-guage-status.txt", FILE_WRITE);
+  SD.remove("rgs.txt");
+  sd_card = SD.open("rgs.txt", FILE_WRITE);
   sd_card.println(rain_guage_data);
   sd_card.close();
 
@@ -223,15 +248,26 @@ void loop() {
   serializeJson(doc, s_serial_to_esp);
   doc.clear();
 
-  // Store data in micro sdcard every 30 seconds
-  if (counter % 30 == 0) {
+  // Store data in micro sdcard every 5 seconds
+  if (counter % 5 == 0) {
     String final_string = rtc_date + "," + rtc_time + "," + dht_humidity + "," + dht_temperature + "," + dht_heat_index + "," + bmp_temperature + "," + bmp_pressure + "," + bmp_altitude + "," + rain_sensor_data + "," + rain_guage_data;
-    sd_card = SD.open("sensor_data.txt", FILE_WRITE);
+    sd_card = SD.open("sdt.txt", FILE_WRITE);
     sd_card.println(final_string);
     sd_card.close();
     counter = 0;
+    sdcard_flag = true;
   }
   counter ++;
+
+  if (sdcard_flag == true) {
+    if (counter == 1) {
+      digitalWrite(SDREADLEDPIN, HIGH);
+    }
+    else if (counter == 2) {
+      digitalWrite(SDREADLEDPIN, LOW);
+      sdcard_flag = false;
+    }
+  }
 
   // Serial print for debugging
   Serial.println("-----------------------------------");
@@ -245,6 +281,7 @@ void loop() {
   Serial.print("Rain Sensor: "); Serial.println(rain_sensor_data);
   Serial.print("Rain Guage: "); Serial.println(rain_guage_data);
   Serial.println("-----------------------------------\n");
+ 
   
   delay(1000);
 }
