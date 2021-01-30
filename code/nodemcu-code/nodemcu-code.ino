@@ -6,6 +6,7 @@
  * Created by: Sashwat K
  */
 
+// WiFi manager & server
 #include <ESP8266WiFi.h>
 #include <ESP8266mDNS.h>
 #include <WiFiUdp.h>
@@ -15,21 +16,25 @@
 #include <WiFiManager.h> 
 #define WEB_PORT 80
 
-#include "DHT.h"
-#define DHTPIN D5
-#define DHTTYPE DHT22
-
-#include "BMP280.h"
-#include "Wire.h"
-#define P0 1013.25
-
-#include <EEPROM.h>
-
 WiFiManager wifiManager;
 ESP8266WebServer server(WEB_PORT);
 WiFiClient client;
-DHT dht(DHTPIN, DHTTYPE);
-BMP280 bmp;
+
+// Micro SD card Module
+#include <SPI.h>
+#include <SD.h>
+File sd_card;
+#define CS_PIN  8
+
+// JSON connection
+#include "ArduinoJson.h"
+
+// Software Serial
+#include <SoftwareSerial.h> // Library for Software Serial
+SoftwareSerial s_serial_to_mega(5, 14); //RX, TX
+
+// LED - D4 - GPIO2
+#define SDCRDERRLEDPIN 2
 
 String admin_username = "admin";
 String admin_password;
@@ -44,19 +49,32 @@ int addr = 0;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  EEPROM.begin(512);
+  Serial.println("-------------------------");
+  Serial.println(" Weather Station Cluster ");
+  Serial.println("-------------------------");
+  Serial.println("Sensor Initialisation \n");
+
+  // Initialise LED
+  pinMode(SDCRDERRLEDPIN, OUTPUT);
+
+  // Initialise LED to off
+  digitalWrite(SDCRDERRLEDPIN, LOW);
+
+  Serial.print("1. Initialising SD card module");
+  if (!SD.begin(CS_PIN)) {
+    digitalWrite(SDCRDERRLEDPIN, HIGH);
+    Serial.println("\t Failed");
+    while (1);
+  }
+  else {
+    Serial.println("\t Success");
+  }
   
-  readDataFromEEPROM();
   
-  dht.begin();
-  
-  bmp.begin();
-  bmp.setOversampling(4);
-  
-  wifiManager.autoConnect("Home Weather Station Mini");
+  wifiManager.autoConnect("Weather Station Cluster");
 
   ArduinoOTA.setPort(8266);
-  ArduinoOTA.setHostname("Home Weather Station Mini");
+  ArduinoOTA.setHostname("Weather Station Cluster");
 
   ArduinoOTA.onStart([]() {
     String type;
@@ -103,7 +121,9 @@ void setup() {
   server.onNotFound(handleNotFound);
   server.begin();
   
-  Serial.println("connected :)");
+  Serial.println("Home weather station connected.");
+  Serial.println("Initialisation complete");
+  Serial.println("--------------------------------");
 }
 
 void loop() {
@@ -112,67 +132,8 @@ void loop() {
     while(WiFi.status() == WL_CONNECTED){
       ArduinoOTA.handle();
       server.handleClient();
-      float dht_humidity = dht.readHumidity();
-      float dht_temperature = dht.readTemperature();
-      float dht_heat_index = dht.computeHeatIndex(dht_temperature, dht_humidity, false);
-
-      double bmp_temperature, bmp_pressure, bmp_altitude;
-      char result = bmp.startMeasurment();
-
-      if (result != 0) {
-        delay(result);
-        result = bmp.getTemperatureAndPressure(bmp_temperature,bmp_pressure);
-
-        if(result!=0) {
-          bmp_altitude = bmp.altitude(bmp_pressure,P0);
-          if (timer % 30 == 0) {
-            print_diagnostic_data(bmp_temperature, bmp_pressure, bmp_altitude, dht_humidity, dht_temperature, dht_heat_index); 
-          }
-        }
-      }
-      timer++;
-      delay(1000);
     }
   }
-}
-
-void readDataFromEEPROM() {
-  admin_password = read_String(200);
-  server_url = read_String(250);
-  server_api_key = read_String(300);
-  gps_longitude = read_String(350);
-  gps_latitude = read_String(400);
-}
-
-String read_String(char add) {
-  int i;
-  char data[100]; //Max 100 Bytes
-  int len=0;
-  unsigned char k;
-  k=EEPROM.read(add);
-  while(k != '\0' && len<500)   //Read until null character
-  {    
-    k=EEPROM.read(add+len);
-    data[len]=k;
-    len++;
-  }
-  data[len]='\0';
-  return String(data);
-}
-
-void writeString(char add,String data) {
-  int _size = data.length();
-  int i;
-  for (i = 0; i < 50; i++) {
-    EEPROM.write(add+i, 0);
-  }
-  EEPROM.end();
-  for(i=0;i<_size;i++)
-  {
-    EEPROM.write(add+i,data[i]);
-  }
-  EEPROM.write(add+_size,'\0');   //Add termination null character for String Data
-  EEPROM.commit();
 }
 
 void handle_OnConnect() {
@@ -181,34 +142,25 @@ void handle_OnConnect() {
 
 void change_hostname() {
   WiFi.hostname(server.arg("device_hostname"));
-  delay(10);
   jump_to_home();
 }
 
 void change_server_ip() {
-  writeString(250, server.arg("server_ip"));
-  delay(10);
   server_url = server.arg("server_ip");
   jump_to_home();
 }
 
 void change_api_key() {
-  writeString(300, server.arg("api_key"));
-  delay(10);
   server_api_key = server.arg("api_key");
   jump_to_home();
 }
 
 void change_lattitude() {
-  writeString(350, server.arg("change_latitude"));
-  delay(10);
   gps_latitude = server.arg("change_latitude");
   jump_to_home();
 }
 
 void change_longitude() {
-  writeString(400, server.arg("change_longitude"));
-  delay(10);
   gps_longitude = server.arg("change_longitude");
   jump_to_home();
 }
@@ -216,8 +168,6 @@ void change_longitude() {
 void change_admin_password() {
   if (admin_password == server.arg("old_password")) {
     if (server.arg("new_password") == server.arg("confirm_new_password")) {
-      writeString(200, server.arg("new_password"));
-      delay(10);
       admin_password = server.arg("new_password");
       jump_to_home();
     }
@@ -237,7 +187,7 @@ void reset_network() {
 
 void reset_everything() {
   admin_username = "admin";
-  admin_password = "password";
+  admin_password = "";
   server_url = "sashwat.in";
   server_api_key = "-";
   gps_longitude = "0";
@@ -251,32 +201,6 @@ void jump_to_home() {
 
 void handleNotFound() {
   server.send(404, "text/html",the_404_page());
-}
-
-void writeString(int address, String data)
-{
-  int _size = data.length();
-  for(int i=0;i<_size;i++)
-  {
-    EEPROM.write(address+i, data[i]);
-  }
-  EEPROM.write(address + _size,'\0');   //Add termination null character
-}
-
-String readString(int address)
-{
-  char data[100]; //Max 100 Bytes
-  int len=0;
-  unsigned char k;
-  k = EEPROM.read(address);
-  while(k != '\0' && len < 100)   //Read until null character
-  {
-    k = EEPROM.read(address + len);
-    data[len] = k;
-    len++;
-  }
-  data[len]='\0';
-  return String(data);
 }
 
 String dashboard() {
@@ -298,7 +222,7 @@ String dashboard() {
   String ptr = "<!DOCTYPE html> <html>\n";
   
   ptr += "<head> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
-  ptr += "<title>Home Weather Station Mini</title>\n";
+  ptr += "<title>Weather Station Cluster</title>\n";
   ptr += "<style>\n";
   ptr += "html {font-family: Helvetica; font-weight: bold; display: inline-block; margin: 0px auto; text-align: center; color: whitesmoke;}\n";
   ptr += "table, th, td {margin-left: auto; margin-right: auto; border: 1px solid whitesmoke;}\n";
@@ -323,7 +247,7 @@ String dashboard() {
   ptr += "</script>\n";
   ptr += "</head>\n";
   ptr += "<body>\n";
-  ptr += "<h1>Home Weather Station Mini Dashboard</h1>\n";
+  ptr += "<h1>Weather Station Cluster Dashboard</h1>\n";
   ptr += "<h2>Device Status</h2>\n";
   ptr += "<table> <tr> <td>WiFi SSID: </td> <td colspan=\"2\">" + wifi_ssid + "</td> </tr> <tr> <td>Hostname: </td> <td colspan=\"2\">" + device_hostname + "</td> </tr> <tr> <td>IP address: </td><td colspan=\"2\">" + device_ip_address + "</td> </tr> ";
   ptr += "<tr> <td>Subnet: </td> <td colspan=\"2\">" + device_subnet + "</td> </tr> <tr> <td>Gateway: </td> <td colspan=\"2\">" + device_gateway + "</td> </tr> ";

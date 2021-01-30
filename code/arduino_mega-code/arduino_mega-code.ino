@@ -59,7 +59,7 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   Serial.println("-------------------------");
-  Serial.println("Home Weather Station Mini");
+  Serial.println(" Weather Station Cluster ");
   Serial.println("-------------------------");
   Serial.println("Sensor Initialisation \n");
 
