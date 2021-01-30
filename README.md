@@ -69,17 +69,19 @@ Discount code for Tomson Electronics : ZENOOFF2020
 
 ## PCB design
 
-### Top View
+### Info Board
 
-![Top View](docs/main-top.png)
+#### Top View
 
-### Bottom View
+![Top View](docs/info-top.png)
 
-![Bottom View](docs/main-bottom.png)
+#### Bottom View
 
-### Drill View
+![Bottom View](docs/info-bottom.png)
 
-![Drill View](docs/main-drills.png)
+#### Drill View
+
+![Drill View](docs/info-drills.png)
 
 ## Pre-Installation Steps
 
