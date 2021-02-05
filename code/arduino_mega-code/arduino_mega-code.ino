@@ -249,7 +249,7 @@ void loop() {
   doc.clear();
 
   // Store data in micro sdcard every 5 seconds
-  if (counter % 5 == 0) {
+  if (counter % 30 == 0) {
     String final_string = rtc_date + "," + rtc_time + "," + dht_humidity + "," + dht_temperature + "," + dht_heat_index + "," + bmp_temperature + "," + bmp_pressure + "," + bmp_altitude + "," + rain_sensor_data + "," + rain_guage_data;
     sd_card = SD.open("sdt.txt", FILE_WRITE);
     sd_card.println(final_string);
@@ -281,7 +281,5 @@ void loop() {
   Serial.print("Rain Sensor: "); Serial.println(rain_sensor_data);
   Serial.print("Rain Guage: "); Serial.println(rain_guage_data);
   Serial.println("-----------------------------------\n");
- 
-  
   delay(1000);
 }

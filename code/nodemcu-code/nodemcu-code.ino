@@ -24,14 +24,14 @@ WiFiClient client;
 #include <SPI.h>
 #include <SD.h>
 File sd_card;
-#define CS_PIN  8
+#define CS_PIN  15
 
 // JSON connection
 #include "ArduinoJson.h"
 
 // Software Serial
 #include <SoftwareSerial.h> // Library for Software Serial
-SoftwareSerial s_serial_to_mega(5, 14); //RX, TX
+SoftwareSerial s_serial_to_mega(16, 2); //RX, TX
 
 // LED - D4 - GPIO2
 #define SDCRDERRLEDPIN 2
