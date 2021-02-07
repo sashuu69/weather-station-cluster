@@ -3,7 +3,7 @@
 <eagle version="9.6.2">
 <drawing>
 <settings>
-<setting alwaysvectorfont="no"/>
+<setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
 <grid distance="0.00125" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mil"/>
@@ -242,15 +242,15 @@ CARD</text>
 <text x="100.1014" y="46.4312" size="0.508" layer="21">DIAGNOSTICS</text>
 <text x="91.1606" y="52.7812" size="0.508" layer="21">MEGA</text>
 <text x="103.8098" y="53.1114" size="0.508" layer="21">ESP</text>
-<text x="104.648" y="33.6042" size="1.016" layer="21">SD Card Module (MEGA)</text>
-<text x="105.3084" y="92.329" size="1.016" layer="21">SD Card Module (ESP)</text>
+<text x="104.648" y="33.6042" size="1.016" layer="21">SD Card Module (ESP)</text>
+<text x="105.3084" y="92.329" size="1.016" layer="21">SD Card Module (MEGA)</text>
 <text x="119.0752" y="39.0652" size="0.762" layer="21" rot="R90">GND</text>
 <text x="116.586" y="38.9382" size="0.762" layer="21" rot="R90">VCC</text>
 <text x="114.0968" y="38.862" size="0.762" layer="21" rot="R90">MISO</text>
 <text x="111.506" y="38.8874" size="0.762" layer="21" rot="R90">MOSI</text>
 <text x="108.9152" y="38.862" size="0.762" layer="21" rot="R90">SCK</text>
 <text x="106.426" y="38.8366" size="0.762" layer="21" rot="R90">CS</text>
-<text x="105.918" y="87.2744" size="0.762" layer="21" rot="R270">GND</text>
+<text x="105.88625" y="87.36965" size="0.762" layer="21" rot="R270">GND</text>
 <text x="108.4072" y="87.2744" size="0.762" layer="21" rot="R270">VCC</text>
 <text x="111.0996" y="87.2998" size="0.762" layer="21" rot="R270">MISO</text>
 <text x="113.538" y="87.3252" size="0.762" layer="21" rot="R270">MOSI</text>
@@ -1797,6 +1797,58 @@ CLUSTER</text>
 <rectangle x1="111.586009375" y1="71.326503125" x2="117.936009375" y2="71.358253125" layer="21"/>
 <rectangle x1="111.586009375" y1="71.358253125" x2="117.936009375" y2="71.390003125" layer="21"/>
 <rectangle x1="111.586009375" y1="71.390003125" x2="117.936009375" y2="71.421753125" layer="21"/>
+<text x="93.31325" y="75.7174" size="0.762" layer="21" rot="R270">GND</text>
+<text x="93.12275" y="93.33865" size="0.762" layer="21" rot="R270">VCC</text>
+<text x="91.34475" y="91.6686" size="0.762" layer="21" rot="R90">CS</text>
+<text x="91.5162" y="73.787" size="0.762" layer="21" rot="R90">SCK</text>
+<text x="88.773" y="91.3384" size="0.762" layer="21" rot="R90">MOSI</text>
+<text x="89.04605" y="73.279" size="0.762" layer="21" rot="R90">MISO</text>
+<text x="86.13775" y="91.57335" size="0.762" layer="21" rot="R90">CS</text>
+<text x="86.3727" y="73.4695" size="0.762" layer="21" rot="R90">SCK</text>
+<text x="83.02625" y="93.70695" size="0.762" layer="21" rot="R270">MOSI</text>
+<text x="83.90255" y="72.86625" size="0.762" layer="21" rot="R90">MISO</text>
+<text x="80.4545" y="92.4052" size="0.762" layer="21" rot="R270">D2</text>
+<text x="80.645" y="74.8157" size="0.762" layer="21" rot="R270">D29</text>
+<text x="78.0415" y="93.00845" size="0.762" layer="21" rot="R270">D31</text>
+<text x="78.0415" y="75.3237" size="0.762" layer="21" rot="R270">D33</text>
+<text x="75.27925" y="92.9132" size="0.762" layer="21" rot="R270">D35</text>
+<text x="75.40625" y="74.7522" size="0.762" layer="21" rot="R270">D1</text>
+<wire x1="79.629" y1="89.12225" x2="79.66075" y2="89.0905" width="0.1524" layer="21"/>
+<wire x1="79.66075" y1="89.0905" x2="80.23225" y2="88.519" width="0.1524" layer="21"/>
+<wire x1="80.23225" y1="88.519" x2="81.81975" y2="88.519" width="0.1524" layer="21"/>
+<wire x1="81.81975" y1="88.519" x2="82.01025" y2="88.7095" width="0.1524" layer="21"/>
+<wire x1="82.01025" y1="88.7095" x2="82.01025" y2="93.726" width="0.1524" layer="21"/>
+<wire x1="82.01025" y1="93.726" x2="82.58175" y2="94.2975" width="0.1524" layer="21"/>
+<wire x1="82.58175" y1="94.2975" x2="86.20125" y2="94.2975" width="0.1524" layer="21"/>
+<wire x1="86.20125" y1="94.2975" x2="86.9315" y2="93.56725" width="0.1524" layer="21"/>
+<wire x1="79.66075" y1="89.0905" x2="79.66075" y2="95.0595" width="0.1524" layer="21"/>
+<wire x1="86.9315" y1="93.56725" x2="86.9315" y2="72.009" width="0.1524" layer="21"/>
+<wire x1="86.9315" y1="72.009" x2="86.233" y2="71.3105" width="0.1524" layer="21"/>
+<wire x1="86.233" y1="71.3105" x2="80.391" y2="71.34225" width="0.1524" layer="21"/>
+<wire x1="80.42275" y1="68.67525" x2="91.15425" y2="68.67525" width="0.1524" layer="21"/>
+<wire x1="91.15425" y1="68.67525" x2="92.3925" y2="69.9135" width="0.1524" layer="21"/>
+<wire x1="92.3925" y1="69.9135" x2="92.3925" y2="95.0595" width="0.1524" layer="21"/>
+<text x="80.2005" y="69.1515" size="1.778" layer="21">NodeMCU</text>
+<wire x1="80.48625" y1="71.3105" x2="78.58125" y2="73.2155" width="0.1524" layer="21"/>
+<wire x1="78.58125" y1="73.2155" x2="76.61275" y2="73.2155" width="0.1524" layer="21"/>
+<wire x1="76.61275" y1="73.2155" x2="76.61275" y2="86.39175" width="0.1524" layer="21"/>
+<wire x1="76.61275" y1="86.39175" x2="76.93025" y2="86.70925" width="0.1524" layer="21"/>
+<wire x1="76.93025" y1="86.70925" x2="76.93025" y2="88.10625" width="0.1524" layer="21"/>
+<wire x1="76.93025" y1="88.10625" x2="76.454" y2="88.5825" width="0.1524" layer="21"/>
+<wire x1="76.454" y1="88.5825" x2="74.70775" y2="88.5825" width="0.1524" layer="21"/>
+<wire x1="74.70775" y1="88.5825" x2="73.94575" y2="87.8205" width="0.1524" layer="21"/>
+<wire x1="73.94575" y1="87.8205" x2="73.94575" y2="71.72325" width="0.1524" layer="21"/>
+<wire x1="73.94575" y1="71.72325" x2="75.85075" y2="69.81825" width="0.1524" layer="21"/>
+<wire x1="75.85075" y1="69.81825" x2="79.47025" y2="69.81825" width="0.1524" layer="21"/>
+<wire x1="79.47025" y1="69.81825" x2="80.42275" y2="68.86575" width="0.1524" layer="21"/>
+<wire x1="80.42275" y1="68.86575" x2="80.42275" y2="68.67525" width="0.1524" layer="21"/>
+<wire x1="73.88225" y1="71.6915" x2="72.009" y2="71.6915" width="0.1524" layer="21"/>
+<wire x1="72.009" y1="71.6915" x2="71.91375" y2="71.59625" width="0.1524" layer="21"/>
+<wire x1="71.91375" y1="71.59625" x2="70.9295" y2="72.5805" width="0.1524" layer="21"/>
+<wire x1="70.9295" y1="72.5805" x2="70.485" y2="72.99325" width="0.1524" layer="21"/>
+<wire x1="70.485" y1="72.99325" x2="70.485" y2="91.78925" width="0.1524" layer="21"/>
+<wire x1="70.485" y1="91.78925" x2="74.422" y2="95.02775" width="0.1524" layer="21"/>
+<text x="72.8345" y="72.73925" size="1.778" layer="21" rot="R90">Arduino MEGA</text>
 </plain>
 <libraries>
 <library name="pinhead" urn="urn:adsk.eagle:library:325">
@@ -2254,31 +2306,31 @@ design rules under a new name.</description>
 <attribute name="NAME" x="96.6978" y="52.1462" size="1.27" layer="25" ratio="10"/>
 <attribute name="VALUE" x="100.5078" y="47.5742" size="1.27" layer="27" ratio="10"/>
 </element>
-<element name="R1" library="adafruit" package="0204/7" value="" x="74.4728" y="59.3852" smashed="yes" rot="R90">
+<element name="R1" library="adafruit" package="0204/7" value="68" x="74.4728" y="59.3852" smashed="yes" rot="R90">
 <attribute name="NAME" x="73.1774" y="54.6862" size="0.9906" layer="25" ratio="12" rot="R90"/>
 <attribute name="VALUE" x="74.9554" y="57.7596" size="0.9906" layer="27" ratio="12" rot="R90"/>
 </element>
-<element name="R2" library="adafruit" package="0204/7" value="" x="78.2828" y="59.3852" smashed="yes" rot="R90">
+<element name="R2" library="adafruit" package="0204/7" value="68" x="78.2828" y="59.3852" smashed="yes" rot="R90">
 <attribute name="NAME" x="76.8858" y="54.6354" size="0.9906" layer="25" ratio="12" rot="R90"/>
 <attribute name="VALUE" x="78.7654" y="57.7596" size="0.9906" layer="27" ratio="12" rot="R90"/>
 </element>
-<element name="R3" library="adafruit" package="0204/7" value="" x="82.0928" y="59.3852" smashed="yes" rot="R90">
+<element name="R3" library="adafruit" package="0204/7" value="68" x="82.0928" y="59.3852" smashed="yes" rot="R90">
 <attribute name="NAME" x="80.772" y="54.5592" size="0.9906" layer="25" ratio="12" rot="R90"/>
 <attribute name="VALUE" x="82.5754" y="57.7596" size="0.9906" layer="27" ratio="12" rot="R90"/>
 </element>
-<element name="R4" library="adafruit" package="0204/7" value="" x="85.9028" y="59.3852" smashed="yes" rot="R90">
+<element name="R4" library="adafruit" package="0204/7" value="68" x="85.9028" y="59.3852" smashed="yes" rot="R90">
 <attribute name="NAME" x="84.709" y="54.5084" size="0.9906" layer="25" ratio="12" rot="R90"/>
 <attribute name="VALUE" x="86.3854" y="57.7596" size="0.9906" layer="27" ratio="12" rot="R90"/>
 </element>
-<element name="R5" library="adafruit" package="0204/7" value="" x="89.7128" y="59.3852" smashed="yes" rot="R90">
+<element name="R5" library="adafruit" package="0204/7" value="68" x="89.7128" y="59.3852" smashed="yes" rot="R90">
 <attribute name="NAME" x="88.5952" y="54.61" size="0.9906" layer="25" ratio="12" rot="R90"/>
 <attribute name="VALUE" x="90.1954" y="57.7596" size="0.9906" layer="27" ratio="12" rot="R90"/>
 </element>
-<element name="R6" library="adafruit" package="0204/7" value="" x="93.5228" y="59.3852" smashed="yes" rot="R90">
+<element name="R6" library="adafruit" package="0204/7" value="68" x="93.5228" y="59.3852" smashed="yes" rot="R90">
 <attribute name="NAME" x="92.4052" y="54.6608" size="0.9906" layer="25" ratio="12" rot="R90"/>
 <attribute name="VALUE" x="94.0054" y="57.7596" size="0.9906" layer="27" ratio="12" rot="R90"/>
 </element>
-<element name="R7" library="adafruit" package="0204/7" value="" x="97.3328" y="59.3852" smashed="yes" rot="R90">
+<element name="R7" library="adafruit" package="0204/7" value="68" x="97.3328" y="59.3852" smashed="yes" rot="R90">
 <attribute name="NAME" x="96.2152" y="54.6862" size="0.9906" layer="25" ratio="12" rot="R90"/>
 <attribute name="VALUE" x="97.8154" y="57.7596" size="0.9906" layer="27" ratio="12" rot="R90"/>
 </element>
@@ -2524,10 +2576,11 @@ design rules under a new name.</description>
 <wire x1="97.3328" y1="63.1952" x2="97.3328" y2="64.4652" width="0.1524" layer="1"/>
 <wire x1="97.3328" y1="64.4652" x2="88.4428" y2="73.3552" width="0.1524" layer="1"/>
 <wire x1="88.4428" y1="73.3552" x2="77.0128" y2="73.3552" width="0.1524" layer="1"/>
-<wire x1="77.0128" y1="73.3552" x2="75.7428" y2="74.6252" width="0.1524" layer="1"/>
-<wire x1="75.7428" y1="74.6252" x2="75.7428" y2="77.1652" width="0.1524" layer="1"/>
-<via x="75.7428" y="77.1652" extent="1-16" drill="0.35"/>
-<wire x1="75.7428" y1="87.3252" x2="75.7428" y2="77.1652" width="0.1524" layer="16"/>
+<wire x1="77.0128" y1="73.3552" x2="75.71105" y2="74.65695" width="0.1524" layer="1"/>
+<wire x1="75.71105" y1="74.65695" x2="75.71105" y2="75.60945" width="0.1524" layer="1"/>
+<via x="75.71105" y="75.60945" extent="1-16" drill="0.35"/>
+<wire x1="75.7428" y1="87.3252" x2="75.71105" y2="87.29345" width="0.1524" layer="16"/>
+<wire x1="75.71105" y1="87.29345" x2="75.71105" y2="75.60945" width="0.1524" layer="16"/>
 </signal>
 </signals>
 <mfgpreviewcolors>

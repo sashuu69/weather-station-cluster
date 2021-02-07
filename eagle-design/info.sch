@@ -4049,13 +4049,13 @@ Source: http://www.osram.convergy.de/</description>
 <part name="LED5" library="adafruit" deviceset="LED" device="3MM"/>
 <part name="LED6" library="adafruit" deviceset="LED" device="3MM"/>
 <part name="LED7" library="adafruit" deviceset="LED" device="3MM"/>
-<part name="R1" library="adafruit" deviceset="R-US_" device="0204/7"/>
-<part name="R2" library="adafruit" deviceset="R-US_" device="0204/7"/>
-<part name="R3" library="adafruit" deviceset="R-US_" device="0204/7"/>
-<part name="R4" library="adafruit" deviceset="R-US_" device="0204/7"/>
-<part name="R5" library="adafruit" deviceset="R-US_" device="0204/7"/>
-<part name="R6" library="adafruit" deviceset="R-US_" device="0204/7"/>
-<part name="R7" library="adafruit" deviceset="R-US_" device="0204/7"/>
+<part name="R1" library="adafruit" deviceset="R-US_" device="0204/7" value="68"/>
+<part name="R2" library="adafruit" deviceset="R-US_" device="0204/7" value="68"/>
+<part name="R3" library="adafruit" deviceset="R-US_" device="0204/7" value="68"/>
+<part name="R4" library="adafruit" deviceset="R-US_" device="0204/7" value="68"/>
+<part name="R5" library="adafruit" deviceset="R-US_" device="0204/7" value="68"/>
+<part name="R6" library="adafruit" deviceset="R-US_" device="0204/7" value="68"/>
+<part name="R7" library="adafruit" deviceset="R-US_" device="0204/7" value="68"/>
 <part name="JP3" library="adafruit" deviceset="PINHD-1X6" device=""/>
 <part name="JP4" library="adafruit" deviceset="PINHD-1X6" device=""/>
 <part name="JP1" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-2X8" device="/90" package3d_urn="urn:adsk.eagle:package:22488/2"/>
