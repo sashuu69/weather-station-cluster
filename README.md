@@ -83,6 +83,20 @@ Discount code for Tomson Electronics : ZENOOFF2020
 
 ![Drill View](docs/info-drills.png)
 
+### Process Board
+
+#### Top View
+
+![Top View](docs/board-top.png)
+
+#### Bottom View
+
+![Bottom View](docs/board-bottom.png)
+
+#### Drill View
+
+![Drill View](docs/board-drills.png)
+
 ## Pre-Installation Steps
 
 1. Connect the sensors as per circuit diagram.
