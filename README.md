@@ -26,6 +26,7 @@ The Weather Station Cluster is weather station system for ethusiasts that want t
 2. code/nodemcu-code: Contains code NodeMCU.
 3. docs: PCB images (Top, Bottom and Drill).
 4. eagle-design: Eagle design of PCB.
+5. fusion360-design: STL files of rain guage, wind direction and wind speed.
 
 ## Library used
 
@@ -35,10 +36,7 @@ The Weather Station Cluster is weather station system for ethusiasts that want t
 
 ## CAD Files
 
-1. Rain Guage - [Thingiverse](https://www.thingiverse.com/thing:4434857)
-2. Rain sensor support - [Thingiverse](https://www.thingiverse.com/thing:4107951)
-3. Wind direction - [Thingiverse](https://www.thingiverse.com/thing:2348449)
-4. Wind speed - [Thingiverse](https://www.thingiverse.com/thing:2523343)
+1. Rain sensor support - [Thingiverse](https://www.thingiverse.com/thing:4107951)
 
 ## Components Used
 
@@ -64,8 +62,6 @@ The Weather Station Cluster is weather station system for ethusiasts that want t
 20. Resistor (10K Ohms) (x2) - [Tomson Electronics](https://www.tomsonelectronics.com/products/1ko-12ko-carbon-film-resistor)
 21. Resistor (220 Ohms) (x7) - [Tomson Electronics](https://www.tomsonelectronics.com/products/100k-ohm-metal-film-resistor?variant=8737726038107)
 22. Pole, Wires, tapes and zip ties
-
-Discount code for Tomson Electronics : ZENOOFF2020
 
 ## PCB design
 
@@ -122,4 +118,4 @@ Discount code for Tomson Electronics : ZENOOFF2020
 
 1. Sashwat K (@sashuu6) <hi@sashwat.in>
 2. Tharun P Karun (@tharunpkarun) <tpk@tharun.me>
-3. Sreeram [YouTube](https://www.youtube.com/channel/UC3x_svxO5Dxl0VesjEMpuGg)
+3. Sreeram (STL files) [YouTube](https://www.youtube.com/channel/UC3x_svxO5Dxl0VesjEMpuGg)
