@@ -54,14 +54,16 @@ The Weather Station Cluster is weather station system for ethusiasts that want t
 12. DC Barrel Power Jack (x1) - [Tomson Electronics](https://www.tomsonelectronics.com/products/dc-barrel-power-jack)
 13. LED (Red) (x4) - [Tomson Electronics](https://www.tomsonelectronics.com/products/led-basic-red-5mm-pack-of-10)
 14. Diode IN 4007 (x1) - [Tomson Electronics](https://www.tomsonelectronics.com/products/diode-1n-4007)
-15. Capacitor (1uF 63V) (x2) - [Tomson Electronics](https://www.tomsonelectronics.com/products/100uf-16v-radial-electrolytic-capacitor)
-16. 7805 5V regulator (x1) - [Amazon (India)](https://www.amazon.in/5-piece-voltage-regulator-7805/dp/0070530572)
-17. LED (Green) (x3) - [Tomson Electronics](https://www.tomsonelectronics.com/products/led-basic-green-5-mm)
-18. Micro SD Card Module (x1) - [Tomson Electronics](https://www.tomsonelectronics.com/products/micro-sd-card-module)
-19. Rain drop detection sensor Module (x1) - [Tomson Electronics](https://www.tomsonelectronics.com/products/rain-drop-detection-sensor-rain-detector-weather-module)
-20. Resistor (10K Ohms) (x2) - [Tomson Electronics](https://www.tomsonelectronics.com/products/1ko-12ko-carbon-film-resistor)
-21. Resistor (220 Ohms) (x7) - [Tomson Electronics](https://www.tomsonelectronics.com/products/100k-ohm-metal-film-resistor?variant=8737726038107)
-22. Pole, Wires, tapes and zip ties
+15. 7805 5V regulator (x1) - [Amazon (India)](https://www.amazon.in/5-piece-voltage-regulator-7805/dp/0070530572)
+16. LED (Green) (x3) - [Tomson Electronics](https://www.tomsonelectronics.com/products/led-basic-green-5-mm)
+17. Micro SD Card Module (x1) - [Tomson Electronics](https://www.tomsonelectronics.com/products/micro-sd-card-module)
+18. Rain drop detection sensor Module (x1) - [Tomson Electronics](https://www.tomsonelectronics.com/products/rain-drop-detection-sensor-rain-detector-weather-module)
+19. Resistor (10K Ohms) (x2) - [Tomson Electronics](https://www.tomsonelectronics.com/products/1ko-12ko-carbon-film-resistor)
+20. Resistor (220 Ohms) (x7) - [Tomson Electronics](https://www.tomsonelectronics.com/products/100k-ohm-metal-film-resistor?variant=8737726038107)
+21. Neodymium disc magnets (4x1.5mm) (x2) - [Tomson Electronics](https://www.tomsonelectronics.com/products/neodymium-disc-magnets?variant=37753432768707)
+22. Neodymium disc magnets (4x1.5mm) (x1) - [Tomson Electronics](https://www.tomsonelectronics.com/products/neodymium-disc-magnets?variant=37753432801475)
+23. PLA (1KG) (WHITE) (x1) - [Tomson Electronics](https://www.augment3di.com/product/white-pla-premium-filament-1kg/)
+24. Pole, Wires, tapes and zip ties
 
 ## PCB design
 
