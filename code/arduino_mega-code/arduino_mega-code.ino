@@ -273,6 +273,8 @@ void loop() {
   doc["rain_sensor_data_analog"] = rain_sensor_data_analog;
   doc["rain_sensor_data_digital"] = rain_sensor_data_digital;
   doc["rain_guage_data"] = rain_guage_data;
+  //doc["wind_speed"] =
+  //doc["wind_direction"] =
   
   // Send JSON via Serial
   serializeJson(doc, s_serial_to_esp);
@@ -312,6 +314,8 @@ void loop() {
   Serial.print("9. Rain Sensor (Analog): "); Serial.println(rain_sensor_data_analog);
   Serial.print("10. Rain Sensor (Digital): "); Serial.println(rain_sensor_data_digital);
   Serial.print("11. Rain Guage: "); Serial.println(rain_guage_data);
+  Serial.print("12. Wind Speed: "); Serial.print(""); Serial.println(" m/s");
+  Serial.print("13. Wind direction: "); Serial.println();
   Serial.println("-----------------------------------\n");
   delay(1000);
 }
