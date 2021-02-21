@@ -31,8 +31,9 @@ The Weather Station Cluster is weather station system for ethusiasts that want t
 ## Library used
 
 1. DHT22 Library - [GitHub](https://github.com/adafruit/DHT-sensor-library)
-2. BMP280 Library - [GitHub](https://github.com/mahfuz195/BMP280-arduino-library)
+2. BMP280 Library - [GitHub](https://github.com/adafruit/Adafruit_BMP280_Library)
 3. RTC Library - [GitHub](https://github.com/adafruit/RTClib)
+4. ArduinoJSON Library - [GitHub](https://github.com/bblanchon/ArduinoJson)
 
 ## CAD Files
 
