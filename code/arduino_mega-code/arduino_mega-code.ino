@@ -136,20 +136,18 @@ void setup() {
   pinMode(INPUT, RAINSENSORDIGITALPIN);
   Serial.println("\t Success");
 
-  Serial.print("5. Initialising Rain guage");
+  Serial.print("6. Initialising Rain guage");
   // Initialise rain guage
   pinMode(INPUT, RAINGUAGEPIN);
   Serial.println("\t Success");
 
-  // Begin software Serial
-  Serial.print("6. Initialising software serial");
-  s_serial_to_esp.begin(4800);
+  // Initialise Wind speed
+  Serial.print("7. Initialising Wind speed sensor");
+  pinMode(INPUT, WINDSPEEDPIN);
   Serial.println("\t Success");
 
-  // Initialise Wind speed
-  pinMode(INPUT, WINDSPEEDPIN);
-
   // Initialise Wind direction
+  Serial.print("8. Initialising Wind direction sensor");
   pinMode(INPUT, WINDDIRN);
   pinMode(INPUT, WINDDIRNE);
   pinMode(INPUT, WINDDIRE);
@@ -158,6 +156,12 @@ void setup() {
   pinMode(INPUT, WINDDIRSW);
   pinMode(INPUT, WINDDIRW);
   pinMode(INPUT, WINDDIRNW);
+  Serial.println("\t Success");
+
+  // Begin software Serial
+  Serial.print("9. Initialising software serial");
+  s_serial_to_esp.begin(4800);
+  Serial.println("\t Success");
   
   Serial.println("\ninitialiaation complete");
   Serial.println("-------------------------\n");
@@ -178,27 +182,6 @@ void setup() {
     Serial.println("RTC is NOT running, let's set the time!");
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   }
-
-  // For rain guage
-  if (SD.exists("rgs.txt")) {
-    Serial.println("rain guage status (rgs.txt) file exists");
-  }
-  else {
-    Serial.println("Creating rain guage status (rgs.txt)");
-    sd_card = SD.open("rgs.txt", FILE_WRITE);
-    sd_card.println(0);
-    sd_card.close();
-  }
-  
-  if (SD.exists("rgf.txt")) {
-    Serial.println("rain-guage-flag.txt file exists");
-  }
-  else {
-    Serial.println("Creating rain guage flag (rgf.txt");
-    sd_card = SD.open("rgf.txt", FILE_WRITE);
-    sd_card.println(0);
-    sd_card.close();
-  }
 }
 
 void loop() {
@@ -213,8 +196,9 @@ void loop() {
   double bmp_temperature = bmp.readTemperature();
   /* bmp_pressure = pressure_value / 100 + const
    * const = 1018.33 - (get pressure value of your location from https://en.allmetsat.com/metar-taf/)
+   * Thiruvananthapuram, Kerala, India - https://en.allmetsat.com/metar-taf/india-sri-lanka.php?icao=VOTV
    */
-  double bmp_pressure = bmp.readPressure() / 100.00 + 5.33;
+  double bmp_pressure = bmp.readPressure() / 100.00 + (1018.33 - 1012);
   double bmp_altitude = bmp.readAltitude(bmp_pressure);
 
   // Read data from RTC module
@@ -225,15 +209,6 @@ void loop() {
   // Read data from Rain Sensor
   int rain_sensor_data_analog = analogRead(RAINSENSORANALOGPIN);
   int rain_sensor_data_digital = digitalRead(RAINSENSORDIGITALPIN);
-
-  // Read data from Rain Guage
-  sd_card = SD.open("rgs.txt", FILE_READ); // To secure from reset or shutdown
-  rain_guage_data = sd_card.read();
-  sd_card.close();
-  
-  sd_card = SD.open("rgf.txt", FILE_READ); // To secure from reset or shutdown
-  rain_guage_flag = sd_card.read();
-  sd_card.close();
   
   int rain_guage_output = digitalRead(RAINGUAGEPIN);
   if(rain_guage_flag != rain_guage_output) {
@@ -241,24 +216,10 @@ void loop() {
     rain_guage_flag = rain_guage_output;
   }
 
-  // Update rain guage flag to file
-  // To secure from reset or shutdown
-  SD.remove("rgf.txt");
-  sd_card = SD.open("rgf.txt", FILE_WRITE);
-  sd_card.println(rain_guage_flag);
-  sd_card.close();
-  
-  // Update rain guage count to file
-  // To secure from reset or shutdown
-  SD.remove("rgs.txt");
-  sd_card = SD.open("rgs.txt", FILE_WRITE);
-  sd_card.println(rain_guage_data);
-  sd_card.close();
-
   // Reset rain guage every midnight
   if (now.hour() == 0 && now.minute() == 00 && rain_guage_data != 0) {
     rain_guage_data = 0;
-  }  
+  }
 
   // Create JSON data
   DynamicJsonDocument doc(512);
