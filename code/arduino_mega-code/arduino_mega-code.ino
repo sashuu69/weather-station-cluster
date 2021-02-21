@@ -3,7 +3,7 @@
  * Program Name: Arduino Mega code
  * Board Name : Arduino Mega
  * Created on: 13/12/2020 08:04:00 PM
- * Last Modified: 29/01/2021 11:39:00 PM
+ * Last Modified: 21/02/2021 11:31:00 AM
  * Created by: Sashwat K
  */
 
@@ -26,16 +26,6 @@ DHT dht(DHTPIN, DHTTYPE);
 #include <Adafruit_BMP280.h>
 Adafruit_BMP280 bmp;
 
-// RTC Module
-#include <RTClib.h>
-RTC_DS1307 rtc;
-
-// Micro SD card Module
-#include <SPI.h>
-#include <SD.h>
-File sd_card;
-int sdcard_chip_select = 53;
-
 // Rain Sensor
 #define RAINSENSORANALOGPIN A7
 #define RAINSENSORDIGITALPIN  22
@@ -45,6 +35,29 @@ int sdcard_chip_select = 53;
 int rain_guage_counter = 0;
 int rain_guage_flag = 0;
 int rain_guage_data = 0;
+
+// Wind Speed
+#define WINDSPEEDPIN 23
+
+// Wind Direction
+#define WINDDIRN 25
+#define WINDDIRNE 27
+#define WINDDIRE 37
+#define WINDDIRSE 39
+#define WINDDIRS 41
+#define WINDDIRSW 43
+#define WINDDIRW 45
+#define WINDDIRNW 47
+
+// RTC Module
+#include <RTClib.h>
+RTC_DS1307 rtc;
+
+// Micro SD card Module
+#include <SPI.h>
+#include <SD.h>
+File sd_card;
+int sdcard_chip_select = 53;
 
 // LEDs
 #define SDREADLEDPIN 29 
@@ -132,6 +145,19 @@ void setup() {
   Serial.print("6. Initialising software serial");
   s_serial_to_esp.begin(4800);
   Serial.println("\t Success");
+
+  // Initialise Wind speed
+  pinMode(INPUT, WINDSPEEDPIN);
+
+  // Initialise Wind direction
+  pinMode(INPUT, WINDDIRN);
+  pinMode(INPUT, WINDDIRNE);
+  pinMode(INPUT, WINDDIRE);
+  pinMode(INPUT, WINDDIRSE);
+  pinMode(INPUT, WINDDIRS);
+  pinMode(INPUT, WINDDIRSW);
+  pinMode(INPUT, WINDDIRW);
+  pinMode(INPUT, WINDDIRNW);
   
   Serial.println("\ninitialiaation complete");
   Serial.println("-------------------------\n");
