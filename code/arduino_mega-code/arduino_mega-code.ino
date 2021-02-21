@@ -37,7 +37,8 @@ File sd_card;
 int sdcard_chip_select = 53;
 
 // Rain Sensor
-#define RAINSENSORPIN A7
+#define RAINSENSORANALOGPIN A7
+#define RAINSENSORDIGITALPIN  22
 
 // Rain Guage
 #define RAINGUAGEPIN 7
@@ -118,7 +119,8 @@ void setup() {
 
   Serial.print("5. Initialising Rain sensor");
   // Initialise rain sensor
-  pinMode(INPUT, RAINSENSORPIN);
+  pinMode(INPUT, RAINSENSORANALOGPIN);
+  pinMode(INPUT, RAINSENSORDIGITALPIN);
   Serial.println("\t Success");
 
   Serial.print("5. Initialising Rain guage");
@@ -195,7 +197,8 @@ void loop() {
   String rtc_time = now.toString("hh:mm:ss");
 
   // Read data from Rain Sensor
-  int rain_sensor_data = analogRead(RAINSENSORPIN);
+  int rain_sensor_data_analog = analogRead(RAINSENSORANALOGPIN);
+  int rain_sensor_data_digital = digitalRead(RAINSENSORDIGITALPIN);
 
   // Read data from Rain Guage
   sd_card = SD.open("rgs.txt", FILE_READ); // To secure from reset or shutdown
@@ -241,7 +244,8 @@ void loop() {
   doc["bmp_temperature"] = bmp_temperature;
   doc["bmp_pressure"] = bmp_pressure;
   doc["bmp_altitude"] = bmp_altitude;
-  doc["rain_sensor_data"] = rain_sensor_data;
+  doc["rain_sensor_data_analog"] = rain_sensor_data_analog;
+  doc["rain_sensor_data_digital"] = rain_sensor_data_digital;
   doc["rain_guage_data"] = rain_guage_data;
   
   // Send JSON via Serial
@@ -250,7 +254,7 @@ void loop() {
 
   // Store data in micro sdcard every 5 seconds
   if (counter % 30 == 0) {
-    String final_string = rtc_date + "," + rtc_time + "," + dht_humidity + "," + dht_temperature + "," + dht_heat_index + "," + bmp_temperature + "," + bmp_pressure + "," + bmp_altitude + "," + rain_sensor_data + "," + rain_guage_data;
+    String final_string = rtc_date + "," + rtc_time + "," + dht_humidity + "," + dht_temperature + "," + dht_heat_index + "," + bmp_temperature + "," + bmp_pressure + "," + bmp_altitude + "," + rain_sensor_data_analog + "," + rain_sensor_data_digital + "," + rain_guage_data;
     sd_card = SD.open("sdt.txt", FILE_WRITE);
     sd_card.println(final_string);
     sd_card.close();
@@ -271,15 +275,17 @@ void loop() {
 
   // Serial print for debugging
   Serial.println("-----------------------------------");
-  Serial.print("RTC Date: "); Serial.println(rtc_date);
-  Serial.print("RTC Time: "); Serial.println(rtc_time);
-  Serial.print("DHT22 Humidity: "); Serial.print(dht_humidity); Serial.println(" %");
-  Serial.print("DHT22 Temperature: "); Serial.print(dht_temperature); Serial.println(" °C");
-  Serial.print("BMP280 Temperature: "); Serial.print(bmp_temperature); Serial.println(" °C");
-  Serial.print("BMP280 Pressure: "); Serial.print(bmp_pressure); Serial.println(" mbar");
-  Serial.print("BMP Altitude: "); Serial.print(bmp_altitude); Serial.println(" m");
-  Serial.print("Rain Sensor: "); Serial.println(rain_sensor_data);
-  Serial.print("Rain Guage: "); Serial.println(rain_guage_data);
+  Serial.print("1. RTC Date: "); Serial.println(rtc_date);
+  Serial.print("2. RTC Time: "); Serial.println(rtc_time);
+  Serial.print("3. DHT22 Humidity: "); Serial.print(dht_humidity); Serial.println(" %");
+  Serial.print("4. DHT22 Temperature: "); Serial.print(dht_temperature); Serial.println(" °C");
+  Serial.print("5. DHT22 Heat Index: "); Serial.print(dht_heat_index); Serial.println(" °C");
+  Serial.print("6. BMP280 Temperature: "); Serial.print(bmp_temperature); Serial.println(" °C");
+  Serial.print("7. BMP280 Pressure: "); Serial.print(bmp_pressure); Serial.println(" mbar");
+  Serial.print("8. BMP Altitude: "); Serial.print(bmp_altitude); Serial.println(" m");
+  Serial.print("9. Rain Sensor (Analog): "); Serial.println(rain_sensor_data_analog);
+  Serial.print("10. Rain Sensor (Digital): "); Serial.println(rain_sensor_data_digital);
+  Serial.print("11. Rain Guage: "); Serial.println(rain_guage_data);
   Serial.println("-----------------------------------\n");
   delay(1000);
 }
