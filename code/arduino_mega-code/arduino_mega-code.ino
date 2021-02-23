@@ -3,7 +3,7 @@
  * Program Name: Arduino Mega code
  * Board Name : Arduino Mega
  * Created on: 13/12/2020 08:04:00 PM
- * Last Modified: 21/02/2021 11:31:00 AM
+ * Last Modified: 23/02/2021 10:27:00 AM
  * Created by: Sashwat K
  */
 
@@ -12,7 +12,7 @@
 
 // Software Serial
 #include <SoftwareSerial.h> // Library for Software Serial
-SoftwareSerial s_serial_to_esp(2, 3); //RX, TX
+SoftwareSerial s_serial_to_esp(3, 2); //RX, TX
 
 // DHT22
 #include "DHT.h"
