@@ -222,7 +222,7 @@ void loop() {
   }
 
   // Create JSON data
-  DynamicJsonDocument doc(512);
+  DynamicJsonDocument doc(1024);
   doc["rtc_date"] = rtc_date;
   doc["rtc_time"] = rtc_time;
   doc["dht_humidity"] = dht_humidity;
