@@ -3,7 +3,7 @@
  * Program Name: Arduino Mega code
  * Board Name : Arduino Mega
  * Created on: 13/12/2020 08:04:00 PM
- * Last Modified: 23/02/2021 10:27:00 AM
+ * Last Modified: 26/02/2021 10:35:00 PM
  * Created by: Sashwat K
  */
 
@@ -203,8 +203,12 @@ void loop() {
 
   // Read data from RTC module
   DateTime now = rtc.now();
-  String rtc_date = now.toString("DD-MM-YYYY");
-  String rtc_time = now.toString("hh:mm:ss");
+  String rtc_day = (now.day()>9)?String(now.day()):"0" + String(now.day());
+  String rtc_month = (now.month()>9)?String(now.month()):"0" + String(now.month());
+  String rtc_year = String(now.year());
+  String rtc_hour = (now.hour()>9)?String(now.hour()):"0" + String(now.hour());
+  String rtc_minutes = (now.minute()>9)?String(now.minute()):"0" +String(now.minute());
+  String rtc_seconds = (now.second()>9)?String(now.second()):"0" +String(now.second());
 
   // Read data from Rain Sensor
   int rain_sensor_data_analog = analogRead(RAINSENSORANALOGPIN);
@@ -223,8 +227,12 @@ void loop() {
 
   // Create JSON data
   DynamicJsonDocument doc(1024);
-  doc["rtc_date"] = rtc_date;
-  doc["rtc_time"] = rtc_time;
+  doc["rtc_day"] = rtc_day;
+  doc["rtc_month"] = rtc_month;
+  doc["rtc_year"] = rtc_year;
+  doc["rtc_hour"] = rtc_hour;
+  doc["rtc_minutes"] = rtc_minutes;
+  doc["rtc_seconds"] = rtc_seconds;
   doc["dht_humidity"] = dht_humidity;
   doc["dht_temperature"] = dht_temperature;
   doc["dht_heat_index"] = dht_heat_index;
@@ -243,7 +251,13 @@ void loop() {
 
   // Store data in micro sdcard every 5 seconds
   if (counter % 30 == 0) {
-    String final_string = rtc_date + "," + rtc_time + "," + dht_humidity + "," + dht_temperature + "," + dht_heat_index + "," + bmp_temperature + "," + bmp_pressure + "," + bmp_altitude + "," + rain_sensor_data_analog + "," + rain_sensor_data_digital + "," + rain_guage_data;
+    String final_string = rtc_day + "-" + rtc_month + "-" + rtc_year + "," + 
+                          rtc_hour + ":" + rtc_minutes + ":" + rtc_seconds + "," + 
+                          dht_humidity + "," + dht_temperature + "," + dht_heat_index + "," + 
+                          bmp_temperature + "," + bmp_pressure + "," + bmp_altitude + "," + 
+                          rain_sensor_data_analog + "," + rain_sensor_data_digital + "," + 
+                          rain_guage_data;
+                          
     sd_card = SD.open("sdt.txt", FILE_WRITE);
     sd_card.println(final_string);
     sd_card.close();
@@ -264,8 +278,8 @@ void loop() {
 
   // Serial print for debugging
   Serial.println("-----------------------------------");
-  Serial.print("1. RTC Date: "); Serial.println(rtc_date);
-  Serial.print("2. RTC Time: "); Serial.println(rtc_time);
+  Serial.print("1. RTC Date: "); Serial.print(rtc_day);Serial.print("-");Serial.print(rtc_month);Serial.print("-");Serial.println(rtc_year);
+  Serial.print("2. RTC Time: "); Serial.print(rtc_hour);Serial.print(":");Serial.print(rtc_minutes);Serial.print(":");Serial.println(rtc_seconds);
   Serial.print("3. DHT22 Humidity: "); Serial.print(dht_humidity); Serial.println(" %");
   Serial.print("4. DHT22 Temperature: "); Serial.print(dht_temperature); Serial.println(" °C");
   Serial.print("5. DHT22 Heat Index: "); Serial.print(dht_heat_index); Serial.println(" °C");
