@@ -283,7 +283,7 @@
 <text x="120.9548" y="25.4762" size="1.016" layer="21" rot="R180">D47</text>
 <text x="117.094" y="54.6354" size="1.27" layer="21">10KΩ</text>
 <text x="129.54" y="45.1866" size="1.27" layer="21" rot="R90">10KΩ</text>
-<text x="133.9342" y="45.2882" size="1.27" layer="21" rot="R90">10KΩ</text>
+<text x="129.8702" y="60.5282" size="1.27" layer="21" rot="R90">10KΩ</text>
 <text x="138.1252" y="45.2882" size="1.27" layer="21" rot="R90">10KΩ</text>
 <text x="142.2654" y="45.3136" size="1.27" layer="21" rot="R90">10KΩ</text>
 <text x="146.5326" y="45.2374" size="1.27" layer="21" rot="R90">10KΩ</text>
@@ -1908,6 +1908,7 @@ CLUSTER</text>
 <vertex x="4.6228" y="63.6524"/>
 <vertex x="4.6228" y="63.754"/>
 </polygon>
+<text x="134.1882" y="60.579" size="1.27" layer="21" rot="R90">10KΩ</text>
 </plain>
 <libraries>
 <library name="SparkFun-Boards">
