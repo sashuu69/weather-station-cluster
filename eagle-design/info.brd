@@ -238,10 +238,10 @@ CARD</text>
 <wire x1="105.1814" y1="46.1264" x2="96.2152" y2="46.1264" width="0.1524" layer="21"/>
 <wire x1="96.2152" y1="46.1264" x2="94.8182" y2="47.5234" width="0.1524" layer="21"/>
 <text x="76.7842" y="52.1208" size="1.016" layer="21">STATUS</text>
-<text x="87.4268" y="33.909" size="0.508" layer="21">DIAGNOSTICS</text>
-<text x="100.1014" y="46.4312" size="0.508" layer="21">DIAGNOSTICS</text>
-<text x="91.1606" y="52.7812" size="0.508" layer="21">MEGA</text>
-<text x="103.8098" y="53.1114" size="0.508" layer="21">ESP</text>
+<text x="85.0773" y="33.87725" size="0.762" layer="21">DIAGNOSTICS</text>
+<text x="97.4344" y="46.4312" size="0.762" layer="21">DIAGNOSTICS</text>
+<text x="89.1921" y="52.36845" size="1.016" layer="21">MEGA</text>
+<text x="102.7303" y="52.50815" size="1.016" layer="21">ESP</text>
 <text x="104.648" y="33.6042" size="1.016" layer="21">SD Card Module (ESP)</text>
 <text x="105.3084" y="92.329" size="1.016" layer="21">SD Card Module (MEGA)</text>
 <text x="106.40695" y="38.6207" size="0.762" layer="21" rot="R90">GND</text>
@@ -286,7 +286,7 @@ CLUSTER</text>
 <wire x1="117.7798" y1="72.5678" x2="105.8164" y2="72.5678" width="0.127" layer="21"/>
 <wire x1="105.8164" y1="72.5678" x2="104.0384" y2="74.3458" width="0.127" layer="21" curve="-90"/>
 <wire x1="104.0384" y1="74.3458" x2="104.0384" y2="81.0514" width="0.127" layer="21"/>
-<text x="75.5904" y="93.2688" size="1.016" layer="22" rot="MR0">sashwat.in</text>
+<text x="69.25945" y="72.7964" size="2.032" layer="22" rot="MR270">sashwat.in</text>
 <wire x1="69.8754" y1="95.0976" x2="118.9736" y2="95.0468" width="0.254" layer="22"/>
 <wire x1="121.9454" y1="91.9988" x2="118.618" y2="95.0722" width="0.254" layer="21" curve="90"/>
 <wire x1="121.6406" y1="35.0266" x2="121.92" y2="91.9988" width="0.254" layer="22"/>
