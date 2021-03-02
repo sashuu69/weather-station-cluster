@@ -62,8 +62,8 @@ int sdcard_chip_select = 53;
 // LEDs
 #define SDREADLEDPIN 29 
 #define BMPERRLEDPIN 33
-#define RTCERRLEDPIN 35
-#define SDCRDERRLEDPIN 31
+#define RTCERRLEDPIN 31
+#define SDCRDERRLEDPIN 35
 
 // Global counter
 int counter = 0;

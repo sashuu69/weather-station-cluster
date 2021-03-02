@@ -2,7 +2,7 @@
  * Project Name: Weather Station Cluster
  * Program Name: NodeMCU code
  * Created on: 20/11/2020 02:11:00 AM
- * Last Modified: 28/12/2020 09:27:00 AM
+ * Last Modified: 27/02/2021 03:51:00 PM
  * Created by: Sashwat K
  */
 
@@ -31,7 +31,7 @@ File sd_card;
 
 // Software Serial
 #include <SoftwareSerial.h> // Library for Software Serial
-SoftwareSerial s_serial_to_mega(16, 2); //RX, TX
+SoftwareSerial s_serial_to_mega(2,0); //RX, TX
 
 // LED - D4 - GPIO2
 #define SDCRDERRLEDPIN 2
@@ -45,6 +45,23 @@ String gps_latitude;
 
 int timer = 0;
 int addr = 0;
+
+// Store serial data from Software Serial
+float dht_humidity_global;
+float dht_temperature_global;
+float dht_heat_index_global;
+double bmp_temperature_global;
+double bmp_pressure_global;
+double bmp_altitude_global;
+String rtc_day_global;
+String rtc_month_global;
+String rtc_year_global;
+String rtc_hour_global;
+String rtc_minutes_global;
+String rtc_seconds_global;
+int rain_sensor_data_analog_global;
+int rain_sensor_data_digital_global;
+int rain_guage_data_global;
 
 void setup() {
   // put your setup code here, to run once:
@@ -69,8 +86,7 @@ void setup() {
   else {
     Serial.println("\t Success");
   }
-  
-  
+
   wifiManager.autoConnect("Weather Station Cluster");
 
   ArduinoOTA.setPort(8266);
@@ -122,16 +138,86 @@ void setup() {
   server.begin();
   
   Serial.println("Home weather station connected.");
+
+  s_serial_to_mega.begin(4800);
   Serial.println("Initialisation complete");
   Serial.println("--------------------------------");
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  if (WiFi.status() == WL_CONNECTED) {
-    while(WiFi.status() == WL_CONNECTED){
-      ArduinoOTA.handle();
-      server.handleClient();
+  if (s_serial_to_mega.available()) {
+    DynamicJsonDocument doc(1024);
+    DeserializationError err = deserializeJson(doc, s_serial_to_mega);
+    if (err == DeserializationError::Ok) {
+      float dht_humidity = doc["dht_humidity"];
+      float dht_temperature = doc["dht_temperature"];
+      float dht_heat_index = doc["dht_heat_index"];
+      double bmp_temperature = doc["bmp_temperature"];
+      double bmp_pressure = doc["bmp_pressure"];
+      double bmp_altitude = doc["bmp_altitude"];
+      String rtc_day = doc["rtc_day"];
+      String rtc_month = doc["rtc_month"];
+      String rtc_year = doc["rtc_year"];
+      String rtc_hour = doc["rtc_hour"];
+      String rtc_minutes = doc["rtc_minutes"];
+      String rtc_seconds = doc["rtc_seconds"];
+      int rain_sensor_data_analog = doc["rain_sensor_data_analog"];
+      int rain_sensor_data_digital = doc["rain_sensor_data_digital"];
+      int rain_guage_data = doc["rain_guage_data"];
+      Serial.println(dht_humidity);
+
+      // ArduinoJSON Library bug, needs spliting
+      dht_humidity_global = dht_humidity;
+      dht_temperature_global = dht_temperature;
+      dht_heat_index_global = dht_heat_index;
+      bmp_temperature_global = bmp_temperature;
+      bmp_pressure_global = bmp_pressure;
+      bmp_altitude_global = bmp_altitude; 
+      rtc_day_global = rtc_day;
+      rtc_month_global = rtc_month;
+      rtc_year_global = rtc_year;
+      rtc_hour_global = rtc_hour;
+      rtc_minutes_global = rtc_minutes;
+      rtc_seconds_global = rtc_seconds;
+      rain_sensor_data_analog_global = rain_sensor_data_analog;
+      rain_sensor_data_digital_global = rain_sensor_data_digital;
+      rain_guage_data_global = rain_guage_data;
+      
+      Serial.println("--------------------------------------------");
+      Serial.print("1. Humidity (DHT22): ");Serial.println(dht_humidity);
+      Serial.print("2. Temperature (DHT22): ");Serial.println(dht_temperature);
+      Serial.print("3. Heat Index (DHT22): ");Serial.println(dht_heat_index);
+      Serial.print("4. Temperature (BMP280): ");Serial.println(bmp_temperature);
+      Serial.print("5. Pressure (BMP280): ");Serial.println(bmp_pressure);
+      Serial.print("6. Altitude (BMP280): ");Serial.println(bmp_altitude);
+      Serial.print("7. Day (RTC): ");Serial.println(rtc_day);
+      Serial.print("8. Month (RTC): ");Serial.println(rtc_month);
+      Serial.print("9. Year (RTC): ");Serial.println(rtc_year);
+      Serial.print("10. Hour (RTC): ");Serial.println(rtc_hour);
+      Serial.print("11. Minutes (RTC): ");Serial.println(rtc_minutes);
+      Serial.print("12. Seconds (RTC): ");Serial.println(rtc_seconds);
+      Serial.print("13. Rain Sensor (Analog): ");Serial.println(rain_sensor_data_analog);
+      Serial.print("14. Rain Sesnor (Digital): ");Serial.println(rain_sensor_data_digital);
+      Serial.print("15. Rain Guage: ");Serial.println(rain_guage_data);
+
+      if (WiFi.status() == WL_CONNECTED) {
+        while(WiFi.status() == WL_CONNECTED){
+          ArduinoOTA.handle();
+          if (client.available()) {
+            server.handleClient();
+          }
+        }
+      }
+    }
+    else {
+      // Print error to the "debug" serial port
+      Serial.print("deserializeJson() returned ");
+      Serial.println(err.c_str());
+
+      // Flush all bytes in the "link" serial port buffer
+      while (s_serial_to_mega.available() > 0)
+        s_serial_to_mega.read();
     }
   }
 }
@@ -255,6 +341,12 @@ String dashboard() {
   ptr += "<tr> <td>Server Status: </td> <td colspan=\"2\">" + server_connection_status + "</td> </tr> <tr> <td>API Key: </td> <td colspan=\"2\">" + server_api_key + "</td> </tr> ";
   ptr += "<tr> <td>Connection Status: </td> <td colspan=\"2\">Authenticated</td> </tr> <tr> <td>GPS : </td> <td>" + gps_latitude + ", " + gps_longitude + "</td> <td><a href=\"https://www.google.com/maps/@" + gps_latitude + "," + gps_longitude + ",15z\" target=\"_blank\">Open in maps</a></td> ";
   ptr += "</tr> <tr> <td colspan=\"3\"><button onclick = \"window.location.reload();\">Refresh</button></td> </tr> </table>\n";
+  ptr += "<h2>Data From Station</h2>\n";
+  ptr += "<table> <tr> <td>Date: </td> <td colspan=\"2\">" + String(rtc_day_global) + "-" + String(rtc_month_global) + "-" + String(rtc_year_global) + "</td> </tr> <tr> <td>Time: </td> <td colspan=\"2\">" + String(rtc_hour_global) + ":" + String(rtc_minutes_global) + ":" + String(rtc_seconds_global) + "</td> </tr> ";
+  ptr += "<tr> <td>Humidity (DHT22): </td><td colspan=\"2\">" + String(dht_humidity_global) + "</td> </tr> <tr> <td>Temperature (DHT22): </td><td colspan=\"2\">" + String(dht_temperature_global) + "</td> </tr> <tr> <td>Heat Index (DHT22): </td><td colspan=\"2\">" + String(dht_heat_index_global) + "</td> </tr>";
+  ptr += "<tr> <td>Temperature (BMP280): </td><td colspan=\"2\">" + String(bmp_temperature_global) + "</td> </tr> <tr> <td>Pressure (BMP280): </td><td colspan=\"2\">" + String(bmp_pressure_global) + "</td> </tr> <tr> <td>Altitude (BMP280): </td><td colspan=\"2\">" + String(bmp_altitude_global) + "</td> </tr>";
+  ptr += "<tr> <td>Rain Sensor (Analog): </td><td colspan=\"2\">" + String(rain_sensor_data_analog_global) + "</td> </tr> <tr> <td>Rain Sensor (Digital): </td><td colspan=\"2\">" + String(rain_sensor_data_digital_global) + "</td> </tr>";
+  ptr += "</tr> <tr> <td>Rain Guage: </td><td colspan=\"2\">" + String(rain_guage_data_global) + "</td> </tr> </table>\n";
   ptr += "<h2>Device Settings</h2>\n";
   ptr += "<table> <tr> <td>Hostname</td> <td> <form action=\"/change_hostname\" method=\"POST\"> <input type=\"text\" name=\"device_hostname\"></td> <td><button onclick=\"return confirm('Are you sure?');\">Change</button></form></td> </tr>\n";
   ptr += "<tr> <td>Server IP:</td> <td> <form action=\"/change_server_ip\" method=\"POST\"><input type=\"text\" name=\"server_ip\"></td> <td><button onclick=\"return confirm('Are you sure?');\">Change</button></form></td> </tr>\n";
