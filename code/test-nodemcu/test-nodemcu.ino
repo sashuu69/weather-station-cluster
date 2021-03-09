@@ -2,7 +2,7 @@
  * Project Name: Weather Station Cluster
  * Program Name: NodeMCU code
  * Created on: 07/03/2021 09:48:00 AM
- * Last Modified: 07/03/2021 09:48:00 AM
+ * Last Modified: 09/03/2021 06:52:00 AM
  * Created by: Sashwat K
  */
  
@@ -101,11 +101,11 @@ void setup() {
   Serial.println("--------------------------------");
 
   Serial.println("Fetch data from SDcard");
-  if (SD.exists("hostname.txt")) {
-    Serial.println("hostname.txt folder already exists.");
+  if (SD.exists("host.txt")) {
+    Serial.println("host.txt folder already exists.");
   }
   else {
-    Serial.println("hostname.txt folder doesn't exist");
+    Serial.println("host.txt folder doesn't exist");
     Serial.flush();
     abort();
   }
