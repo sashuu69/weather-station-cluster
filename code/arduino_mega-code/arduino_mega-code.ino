@@ -3,7 +3,7 @@
  * Program Name: Arduino Mega code
  * Board Name : Arduino Mega
  * Created on: 13/12/2020 08:04:00 PM
- * Last Modified: 26/02/2021 10:35:00 PM
+ * Last Modified: 09/03/2021 10:35:00 PM
  * Created by: Sashwat K
  */
 
@@ -221,8 +221,45 @@ void loop() {
   }
 
   // Reset rain guage every midnight
-  if (now.hour() == 0 && now.minute() == 00 && rain_guage_data != 0) {
+  if (now.hour() == 0 && now.minute() == 00) {
     rain_guage_data = 0;
+  }
+
+  // Get wind direction
+  int wind_direction_n = digitalRead(WINDDIRN);
+  int wind_direction_ne = digitalRead(WINDDIRNE);
+  int wind_direction_e = digitalRead(WINDDIRE);
+  int wind_direction_se = digitalRead(WINDDIRSE);
+  int wind_direction_s = digitalRead(WINDDIRS);
+  int wind_direction_sw = digitalRead(WINDDIRSW);
+  int wind_direction_w = digitalRead(WINDDIRW);
+  int wind_direction_nw = digitalRead(WINDDIRNW);
+
+  String wind_direction_data;
+
+  if (wind_direction_n == HIGH) {
+    wind_direction_data = "North";
+  }
+  else if (wind_direction_ne == HIGH) {
+    wind_direction_data = "North EAST";
+  }
+  else if (wind_direction_e == HIGH) {
+    wind_direction_data = "EAST";
+  }
+  else if (wind_direction_se == HIGH) {
+    wind_direction_data = "South East";
+  }
+  else if (wind_direction_s == HIGH) {
+    wind_direction_data = "South";
+  }
+  else if (wind_direction_sw == HIGH) {
+    wind_direction_data = "South West";
+  }
+  else if (wind_direction_w == HIGH) {
+    wind_direction_data = "West";
+  }
+  else if (wind_direction_nw == HIGH) {
+    wind_direction_data = "North West";
   }
 
   // Create JSON data
@@ -243,7 +280,7 @@ void loop() {
   doc["rain_sensor_data_digital"] = rain_sensor_data_digital;
   doc["rain_guage_data"] = rain_guage_data;
   //doc["wind_speed"] =
-  //doc["wind_direction"] =
+  doc["wind_direction"] = wind_direction_data;
   
   // Send JSON via Serial
   serializeJson(doc, s_serial_to_esp);
