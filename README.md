@@ -1,6 +1,8 @@
 # Weather Station Cluster
 
-## The project is still under progress
+## Introduction
+
+The Weather Station Cluster is weather station system for ethusiasts that want to measure data for education and research purposes.
 
 ## Features
 
