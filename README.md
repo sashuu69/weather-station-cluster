@@ -4,18 +4,20 @@
 
 The Weather Station Cluster is weather station system for ethusiasts that want to measure data for education and research purposes.
 
+![Top View](docs/design.jpeg)
+
 ## Features
 
 1. The device collects the following data:-
-    1. Temperature
-    2. Humidity
-    3. Heat index
-    4. Altitude
-    5. Pressure
-    6. Rain (in cm)
-    7. Rain duration and strength
-    8. Wind speed
-    9. Wind direction
+   1. Temperature
+   2. Humidity
+   3. Heat index
+   4. Altitude
+   5. Pressure
+   6. Rain (in cm)
+   7. Rain duration and strength
+   8. Wind speed
+   9. Wind direction
 2. Collects the above mentioned parameters and stores the data to database.
 
 ## Folder Structure
@@ -108,13 +110,13 @@ The Weather Station Cluster is weather station system for ethusiasts that want t
 
 ## Sensor Info
 
-| Sensor name | Features |
-|-------------|----------|
-| DHT22 | Temperature, Humidity and Heat Index |
-| BMP280 | Temperature, atmospheric pressure and altitude |
-| Rain Guage | Rain in CM |
-| Rain drop sensor | Rain Duration and Strength |
-| Annemometer | Wind speed and wind direction |
+| Sensor name      | Features                                       |
+| ---------------- | ---------------------------------------------- |
+| DHT22            | Temperature, Humidity and Heat Index           |
+| BMP280           | Temperature, atmospheric pressure and altitude |
+| Rain Guage       | Rain in CM                                     |
+| Rain drop sensor | Rain Duration and Strength                     |
+| Annemometer      | Wind speed and wind direction                  |
 
 ## Contributions
 
